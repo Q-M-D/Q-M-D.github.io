@@ -1,198 +1,1105 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="cn">
 
-<head>
-	<meta name="generator" content="Hugo 0.119.0"><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title></title>
-
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="/index.xml">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content=""/>
-
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Cellverse | OPEN-EN.</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="Cellverse" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Cellverse" />
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "",
-  "description": "",
-  "thumbnailUrl": "favicon.ico",
-  "sameAs": [
-      
-  ]
-}
-</script>
-</head>
+{"@type":"WebSite","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"url":"http://localhost:4000/","description":"OPEN-EN.","headline":"Cellverse","name":"Cellverse","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
 
-</script>
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2023 <a href=""></a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
         }
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
     });
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
 
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
 </script>
-</body>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li class="uk-active"><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    
+    
+<div class="uk-section">
+    <div class="uk-container divide custom-container">
+
+        
+        <!-- page 1 -->
+        
+        <div class="custom-section">
+            <div class="custom-h1 custom-blue">OPEN-EM</div>
+            <div class="custom-h1">冷冻电镜内容分享社区</div>
+            <p>我们希望提供一个开放透明、尊重包容、合作共赢的冷冻电镜开源社区，加速相关领域的发展</p>
+            <a class="uk-button uk-button-default uk-margin-small-top" href="/docs/markdown_tutorial/">Documents</a>
+            <a class="uk-button uk-button-default custom-left-margin uk-margin-small-top" href="/sources/markdown_tutorial/">Resources</a>
+            <div class="custom-top-margin-large">
+                <img class="custom-img-icon" src="/uploads/backArrow.png" alt="" />
+                <a href="/contact" class="custom-blue custom-font-middle-size custom-a">联系我们 &gt;&gt;</a>
+            </div>
+        </div>
+        <div class="custom-section">
+            <div class="custom-section-conetent">
+                <img src="/uploads/index-1.svg" alt="" />
+            </div>
+        </div>
+        
+
+        <!-- page 2 -->
+        
+
+        <!-- page 3 -->
+        
+
+        <!-- page 4 -->
+        
+
+
+        
+
+    </div>
+</div>
+
+<div class="uk-section">
+    <div class="uk-container divide custom-container">
+
+        
+        <!-- page 1 -->
+        
+
+        <!-- page 2 -->
+        
+        <div class="custom-section custom-background2">
+            <div class="custom-section-content">
+                <div class="custom-sub-title custom-blue">Documents</div>
+                <div class="custom-title">知识文档</div>
+                <p>提供全流程样本处理教程，涵盖从采集到分析的步骤指导，提供现有软件整理，助您迅速找到适用工具。分享实际软件使用经验，助您更高效完成任务。</p>
+                <ul>
+                    <li>全流程样本处理教程</li>
+                    <li>现有软件整理</li>
+                    <li>软件使用经验</li>
+                </ul>
+                <a class="uk-button uk-button-primary-outline custom-left-margin uk-margin-small-top" href="/docs/markdown_tutorial/">了解更多</a>
+            </div>
+        </div>
+        <div class="custom-section">
+            <div class="custom-section-conetent">
+                <img src="/uploads/index-2.svg" alt="" />
+            </div>
+        </div>
+        
+
+        <!-- page 3 -->
+        
+
+        <!-- page 4 -->
+        
+
+
+        
+
+    </div>
+</div>
+
+<div class="uk-section">
+    <div class="uk-container divide custom-container">
+
+        
+        <!-- page 1 -->
+        
+
+        <!-- page 2 -->
+        
+
+        <!-- page 3 -->
+        
+        <div class="custom-section">
+            <div class="custom-section-conetent">
+                <img src="/uploads/index-3.png" alt="" />
+            </div>
+        </div>
+        <div class="custom-section  custom-background3">
+            <div class="custom-section-content">
+                <div class="custom-sub-title custom-blue">Data Processing</div>
+                <div class="custom-title">数据处理</div>
+                <p>提供一站式解决方案。提供软件环境配置教程，降低入门难度。提供数据处理脚本，助力快速处理。样例数据国内镜像加速下载，节省时间。源码解析深入探究算法逻辑，助您理解背后原理。使数据处理更高效、便捷。</p>
+                <ul>
+                    <li>软件环境配置</li>
+                    <li>数据处理脚本</li>
+                    <li>样例数据国内镜像</li>
+                    <li>源码解析</li>
+                </ul>
+                <a class="uk-button uk-button-primary-outline custom-left-margin uk-margin-small-top" href="/docs/markdown_tutorial/">了解更多</a>
+            </div>
+        </div>
+        
+
+        <!-- page 4 -->
+        
+
+
+        
+
+    </div>
+</div>
+
+<div class="uk-section">
+    <div class="uk-container divide custom-container">
+
+        
+        <!-- page 1 -->
+        
+
+        <!-- page 2 -->
+        
+
+        <!-- page 3 -->
+        
+
+        <!-- page 4 -->
+        
+        <div class="custom-section custom-background4">
+            <div class="custom-section-content">
+                <div class="custom-sub-title custom-blue">Discussion</div>
+                <div class="custom-title">交流讨论</div>
+                <p>交流讨论功能区构建于Github平台，确保公开透明。我们重视相互尊重、平等交流，营造良好氛围。用户可共同参与维护，共享经验，提升文档质量。欢迎贡献问题、建议和解决方案，共同促进知识共享与成长。</p>
+                <ul>
+                    <li>基于Github，公开透明</li>
+                    <li>相互尊重、平等交流</li>
+                    <li>样例数据国内镜像</li>
+                    <li>共同维护高质量文档</li>
+                </ul>
+                <a class="uk-button uk-button-primary-outline custom-left-margin uk-margin-small-top" href="/docs/markdown_tutorial/">了解更多</a>
+            </div>
+        </div>
+        <div class="custom-section">
+            <div class="custom-section-conetent">
+                <img src="/uploads/index-4.svg" alt="" />
+            </div>
+        </div>
+        
+
+
+        
+
+    </div>
+</div>
+
+<div class="uk-section section-team" style="padding-bottom: 0;" id="about">
+    <div class="uk-container uk-container-expand custom-about-us-container">
+        <div class="custom-about-us-img">
+            <img src="/uploads/about-us-1.png" alt="" style="width: 220px;bottom:0px;left:0px;" />
+            <img src="/uploads/about-us-2.png" alt="" style="width: 200px;top:0px;right:300px;" />
+            <img src="/uploads/about-us-3.png" alt="" style="width: 150px;bottom:0px;right:0px;" />
+            <img src="/uploads/QuoteLeft.png" alt="" style="width: 170px;top:0px;left:200px;" />
+            <img src="/uploads/QuoteRight.png" alt="" style="width: 170px;bottom:0px;right:200px;" />
+        </div>
+
+        <p class="uk-text-lead uk-text-center" style="color: #D6FFF0;margin-top: 50px;font-size:1.5rem;font-weight:800;">About Us</p>
+
+        <h2 class="uk-h1 uk-text-center" style="color: #fff;margin-top: 10px;">关于我们</h2>
+
+        <p class="uk-text-lead uk-text-center" style="color: #fff;margin-top: 50px;margin-bottom:100px;font-size:1.25rem;font-weight:600;max-width: 650px;">欢迎来到Open-EM社区，我们团队目前主要来自上海科技大学，致力于推动冷冻电镜技术的发展与应用，降低数据处理门槛，提升数据处理效率，让更多的成员可以参与到冷冻电镜技术的快速发展中来。</p>
+
+        <!-- <div class="custom-top-margin-large" style="padding-bottom: 30px;">
+            <img class="custom-img-icon" src="/uploads/backArrow1.png" alt="">
+            <a href="/about" class="custom-font-middle-size custom-a" style="color: #fff;">了解更多 >></a>
+        </div> -->
+    </div>
+</div>
+
+<div class="uk-section" style="background-color: #EEFFF9;">
+    <div class="uk-container">
+
+        <p class="uk-text-lead uk-text-center" style="color:#0038FF;margin-top: 50px;font-size:1.5rem;font-weight:800;">
+            Our Values</p>
+        <h2 class="uk-h1 uk-text-center" style="margin-top: 10px;">我们的价值观</h2>
+
+        <div class="uk-child-width-1-4@m uk-grid-match uk-text-center uk-margin-medium-top" data-uk-grid="">
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <img src="/uploads/value-Scales.png" alt="" />
+                    <h3 class="uk-card-title uk-margin">平等尊重</h3>
+                    <p>我们珍视每一位社区成员，无论其背景、经验或技能水平。在我们的社区中，我们希望社区成员们相互尊重，平等地进行学术交流和讨论。</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <img src="/uploads/value-OpenDoor.png" alt="" />
+                    <h3 class="uk-card-title uk-margin">分享开放</h3>
+                    <p>我们坚信知识和资源的共享是推动科学进步的关键。我们鼓励成员分享他们的经验、知识和成果，使得每个人都能受益于开源社区的智慧。</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <img src="/uploads/value-HelpingHand.png" alt="" />
+                    <h3 class="uk-card-title uk-margin">透明可靠</h3>
+                    <p>我们保持透明的讨论和操作过程，确保信息的可靠性和稳定性。我们欢迎成员提供反馈和意见，共同监督和参与社区的发展。</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <img src="/uploads/value-Innovation.png" alt="" />
+                    <h3 class="uk-card-title uk-margin">实践创新</h3>
+                    <p>我们鼓励成员勇于尝试新的想法和方法，鼓励实践和创造，以创新作为前进的动力，在科研界开创更加美好的未来。</p>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+<!-- 
+
+<div class="uk-section">
+    <div class="uk-container">
+
+        
+            <h2 class="uk-h1 uk-text-center">Browse Topics</h2>
+        
+
+        <p class="uk-text-lead uk-text-center">Chose an option that you need help with or search above</p>
+
+        <div class="uk-child-width-1-3@m uk-grid-match uk-text-center uk-margin-medium-top" data-uk-grid>
+        
+            
+            
+            
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <a class="uk-position-cover" href="/docs/installation/"></a>
+                    
+                    <span data-uk-icon="icon: cog; ratio: 3.4" class=""></span>
+                    
+                    <h3 class="uk-card-title uk-margin">Getting Started</h3>
+                    
+                    <p>Get started fast with installation and theme setup instructions</p>
+                    
+                </div>
+            </div>
+            
+        
+            
+            
+            
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <a class="uk-position-cover" href="/docs/hero/"></a>
+                    
+                    <span data-uk-icon="icon: settings; ratio: 3.4" class=""></span>
+                    
+                    <h3 class="uk-card-title uk-margin">Theme Features</h3>
+                    
+                    <p>Lean about all the theme options, features and how to use them</p>
+                    
+                </div>
+            </div>
+            
+        
+            
+            
+            
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-card-hover uk-card-body uk-inline border-radius-large border-xlight">
+                    <a class="uk-position-cover" href="/docs/customize/"></a>
+                    
+                    <span data-uk-icon="icon: code; ratio: 3.4" class=""></span>
+                    
+                    <h3 class="uk-card-title uk-margin">Customization</h3>
+                    
+                    <p>Get help or tailor the theme to your specific requirements</p>
+                    
+                </div>
+            </div>
+            
+        
+        </div>
+
+    </div>
+</div> -->
+
+<!-- 
+<div class="uk-section section-featured">
+    <div class="uk-container uk-container-small">
+
+        
+        <h2 class="uk-h1 uk-text-center">Popular Articles</h2>
+        
+
+        
+            <p class="uk-text-center uk-text-lead">Selected featured articles to get you started fast in Jekyll</p>
+        
+        
+        <ul class="uk-list uk-list-large uk-margin-medium-top">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <li><a class="uk-box-shadow-hover-small" href="/docs/faq/">Frequently asked questions section</a></li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <li><a class="uk-box-shadow-hover-small" href="/docs/media/">Adding media to post and doc content</a></li>
+            
+        
+            
+        
+            
+        
+            
+            <li><a class="uk-box-shadow-hover-small" href="/docs/posts/">Creating your first post in Jekyll</a></li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <li><a class="uk-box-shadow-hover-small" href="/docs/videos/">Video lightbox boxes section</a></li>
+            
+        
+        </ul>
+
+    </div>
+</div>
+
+
+ -->
+
+<!-- 
+
+<div class="uk-section section-videos">
+    <div class="uk-container uk-container-small">
+
+        
+            <h2 class="uk-h1 uk-text-center">Video Tutorials</h2>
+        
+
+        <p class="uk-text-lead uk-text-center">Watch screencasts to get you started fast with Jekyll</p>
+
+        <div class="uk-child-width-1-2@m uk-grid-match uk-text-center uk-margin-medium-top" data-uk-grid data-uk-lightbox>
+        
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-small uk-box-shadow-hover-medium uk-card-body uk-inline border-radius-large border-xlight">
+                    <a class="uk-position-cover" href="https://youtu.be/T1itpPvFWHI" data-caption="Jekyll Introduction"></a>
+                    <span data-uk-icon="icon: play-circle; ratio: 3.4" class=""></span>
+                    <h3 class="uk-card-title uk-margin">Jekyll Introduction</h3>
+                    
+                    <p>Overview of the most popular static generator</p>
+                    
+                </div>
+            </div>
+        
+            <div>
+                <div class="uk-card uk-card-default uk-box-shadow-small uk-box-shadow-hover-medium uk-card-body uk-inline border-radius-large border-xlight">
+                    <a class="uk-position-cover" href="https://youtu.be/gsYqPL9EFwQ" data-caption="Creating a post"></a>
+                    <span data-uk-icon="icon: play-circle; ratio: 3.4" class=""></span>
+                    <h3 class="uk-card-title uk-margin">Creating a post</h3>
+                    
+                    <p>Lean how to publish your first post in Jekyll</p>
+                    
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+</div> -->
+
+<!-- <div class="uk-section">
+    <div class="uk-container uk-container-small">
+
+        
+            <h2 class="uk-h1 uk-text-center">Frequently asked questions</h2>
+        
+
+        
+            <p class="uk-text-center uk-text-lead">Find quicke answers to frequent pre-sale questions asked by customers</p>
+        
+
+        
+
+        <ul class="uk-margin-medium-top" data-uk-accordion="multiple: true">
+            
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">Do you provide customer support?</a>
+                    <div class="article-content uk-accordion-content link-primary"><p>Having support for your purchased item means that we will be available to you to iron out any potential issues you have in using the item.</p>
+
+<h4 id="the-item-support-period">The item support period</h4>
+<p>The item includes support for 6 months from the purchase date. If you’re about to purchase the item, you’ll have the option to purchase extended item support, increasing the item support period up to a maximum of 12 months from the date of purchase.</p>
+
+<h4 id="what-else-is-included">What else is included?</h4>
+<p>Answering questions about how to use the item
+Answering technical questions about the item (and included third party assets)
+Help with defects in the item or included third-party assets
+Item updates to ensure ongoing compatibility and to resolve security vulnerabilities
+Updates to ensure the item works as described and is protected against major security concerns
+Included version updates for all items</p>
+
+<h4 id="whats-not-included-in-item-support">What’s not included in item support?</h4>
+<p>Item support does not include services to modify or extend the item beyond the original features, style and functionality described on the item page. For customization services that will help you tailor the item to your specific requirements, we recommend contacting us to see if we privately offer paid customization service.</p>
+
+<ul>
+  <li>Installation of the item</li>
+  <li>Hosting, server environment, or software</li>
+  <li>Help from authors of included third-party assets</li>
+</ul>
+
+<h4 id="contacting-support">Contacting support</h4>
+<p>Support is provided Mon - Fri through item <a href="https://themeforest.net/item/docs-responsive-documentation-manual-jekyll-theme/21131076/support">support</a> page.</p>
+</div>                
+                </li>
+            
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">Are updates and bug fixes included in the cost of the item?</a>
+                    <div class="article-content uk-accordion-content link-primary"><p>Regardless of whether you have support or not:</p>
+
+<ul>
+  <li>When we release an update, it will be available for you to download for free</li>
+  <li>You can report bugs</li>
+  <li>You can expect us to keep the item in good working order, working as described and protected against major security issues</li>
+</ul>
+</div>                
+                </li>
+            
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">Can I extend or renew my item support?</a>
+                    <div class="article-content uk-accordion-content link-primary"><h4 id="item-support-option">Item support option</h4>
+<p>The support options available to you depend on when you make the support purchase.</p>
+
+<ul>
+  <li>A support upgrade is 6 months of additional support that can be purchased at the time of buying the item.</li>
+  <li>A support extension is 6 months of support that can be purchased at any time after the initial purchase of the item, provided the current support period hasn’t expired.</li>
+  <li>A support renewal is 6 months of support that can be purchased after any existing support for an item has expired.</li>
+</ul>
+
+<h4 id="how-do-i-renew-or-extend-my-support">How do I renew or extend my support?</h4>
+<p>In order to extend or renew an item’s support offering, you must have less than 6 months of the existing support period remaining and also the author must still be offering support on their item.</p>
+
+<p>To renew the support component on an item, please follow these steps:</p>
+
+<ul>
+  <li>Log in to your account</li>
+  <li>Hover over your username and click ‘Downloads’ from the drop-down menu.</li>
+  <li>The downloads section displays a list of all the items purchased using your account.</li>
+  <li>Click on ‘Renew support now!’ or ‘Extend now’ next to the item you wish to renew the item support for and that’s it!</li>
+</ul>
+</div>                
+                </li>
+            
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">Does the item come with installation and setup documentation?</a>
+                    <div class="article-content uk-accordion-content link-primary"><p>Yes, all our items come with either bundled documentation located in your “All files &amp; documentation” download zip or online documentation.</p>
+</div>                
+                </li>
+            
+                <li>
+                    <a class="uk-accordion-title uk-box-shadow-hover-small" href="#">Do you provide customization services for your items?</a>
+                    <div class="article-content uk-accordion-content link-primary"><p>Item support does not include services to modify or extend the item beyond the original features, style and functionality described on the item page.</p>
+
+<p>For customization services that will help you tailor the item to your specific requirements, please <a href="https://themeforest.net/item/docs-responsive-documentation-manual-jekyll-theme/21131076/support">contact us</a> to see if we are available to offer paid customization service or check out service providers on <a href="https://studio.envato.com/">Envato Studio</a>.</p>
+</div>                
+                </li>
+            
+        </ul>
+
+    </div>
+</div> -->
+
+<!-- <div class="uk-section section-team">
+    <div class="uk-container uk-container-expand">
+
+        
+            <h2 class="uk-h1 uk-text-center">We are here to help</h2>
+        
+
+        <p class="uk-text-lead uk-text-center">Our team is just an email away ready to answer your questions</p>
+
+        <div class="uk-margin-medium-top uk-grid-small uk-flex-center uk-text-center uk-margin-medium-top" data-uk-grid>
+
+        
+
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-evan.png" alt="Evan Wells">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">Evan Wells</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Support</p>
+                </div>
+            </div>
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-john.png" alt="John Brown">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">John Brown</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Support</p>
+                </div>
+            </div>
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-sara.png" alt="Sara Galen">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">Sara Galen</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Lead Developer</p>
+                </div>
+            </div>
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-alex.png" alt="Alex Koch">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">Alex Koch</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Design Engineer</p>
+                </div>
+            </div>
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-tom.png" alt="Tom Farrell">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">Tom Farrell</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Developer</p>
+                </div>
+            </div>
+        
+
+            
+
+            <div>
+                <div class="uk-card">
+                    
+                        
+
+                        <img class="uk-border-circle" src="http://localhost:4000/uploads/avatar-daniel.png" alt="Daniel Shultz">
+                    
+                    <h5 class="uk-margin-remove-bottom uk-margin-top">Daniel Shultz</h5>
+                    <p class="uk-article-meta uk-margin-remove-bottom uk-margin-small-top">Developer</p>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+</div> -->
+
+<!-- 
+
+
+<div class="uk-section uk-text-center">
+    <div class="uk-container uk-container-small">
+        <div data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">
+            <h2 class="uk-h1 uk-margin-bottom">Didn't find an answer?</h2>
+            <p class="uk-text-lead uk-text-center">Get in touch with us for details on setup and additional custom services pricing</p>
+            <a class="uk-button uk-button-primary uk-button-large uk-margin-medium-top" href="/contact/">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+ -->
+
+
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li class="uk-active"><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+        <footer class="uk-section uk-text-center uk-text-muted">
+    <div class="uk-container uk-container-small">
+
+        <div>
+            <ul class="uk-subnav uk-flex-center">
+                
+                    
+                    
+                    
+                        <li class="uk-active"><a href="/" >主页</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="/contact/" >联系我们</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="/#about" >关于我们</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                    
+                
+            </ul>
+        </div>
+        <div class="uk-margin-medium">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+        <div class="uk-margin-medium uk-text-small copyright link-secondary">
+            <span>版权所有 © 2022 寰渺Open-EM冷冻电镜开源网站</span>
+            <span>ICP备案号：沪ICP备2023023375号-2</span>
+            <span>网站地址：www.open-em.cn</span>
+            <span>域名：open-em.cn</span>
+        </div>
+
+    </div>
+</footer>
+
+    
+
+    
+
+    
+
+    </body>
 
 </html>

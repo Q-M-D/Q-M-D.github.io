@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>GitHub 教程 | Cellverse</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="GitHub 教程" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/docs/github_tutorial/" />
+<meta property="og:url" content="http://localhost:4000/docs/github_tutorial/" />
+<meta property="og:site_name" content="Cellverse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-25T18:05:01+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"dateModified":"2023-09-25T18:05:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docs/github_tutorial/"},"datePublished":"2023-09-25T18:05:01+08:00","url":"http://localhost:4000/docs/github_tutorial/","description":"OPEN-EN.","headline":"GitHub 教程","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-grid-large" data-uk-grid>
+
+            <div class="sidebar-fixed-width uk-visible@m">
+                <div class="sidebar-docs uk-position-fixed uk-margin-top">
+                    
+                    <h5>基础知识</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+                    
+                      
+                      
+                      <li class="uk-active"><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+                    
+                    </ul>
+                    
+                    <h5>数据处理案例</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+                    
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="uk-width-1-1 uk-width-expand@m">
+
+                <article class="uk-article">
+
+                    <h1 class="uk-article-title">GitHub 教程</h1>
+
+                    
+
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        
+
+
+
+<div>
+  
+  <time datetime="2023-09-25T18:05:01+08:00" itemprop="datePublished">
+    
+    Sep 25, 2023
+  </time>
+</div>
+                    </div>
+
+                    <div class="article-content link-primary">
+                        <ul id="markdown-toc">
+  <li><a href="#1-什么是-github" id="markdown-toc-1-什么是-github">1 什么是 GitHub</a></li>
+  <li><a href="#2-多人协同开发" id="markdown-toc-2-多人协同开发">2 多人协同开发</a>    <ul>
+      <li><a href="#在-github-上创建仓库" id="markdown-toc-在-github-上创建仓库">在 GitHub 上创建仓库</a></li>
+      <li><a href="#在-github-上开发" id="markdown-toc-在-github-上开发">在 GitHub 上开发</a>        <ul>
+          <li><a href="#从-github-克隆代码" id="markdown-toc-从-github-克隆代码">从 GitHub 克隆代码</a></li>
+          <li><a href="#从-github-拉取代码" id="markdown-toc-从-github-拉取代码">从 GitHub 拉取代码</a></li>
+          <li><a href="#推送代码到-github" id="markdown-toc-推送代码到-github">推送代码到 GitHub</a></li>
+        </ul>
+      </li>
+      <li><a href="#github-issues" id="markdown-toc-github-issues">GitHub Issues</a>        <ul>
+          <li><a href="#提出问题" id="markdown-toc-提出问题">提出问题</a></li>
+        </ul>
+      </li>
+      <li><a href="#github-pull-requests" id="markdown-toc-github-pull-requests">GitHub Pull Requests</a>        <ul>
+          <li><a href="#pull-request" id="markdown-toc-pull-request">Pull Request</a></li>
+          <li><a href="#代码审查" id="markdown-toc-代码审查">代码审查</a></li>
+        </ul>
+      </li>
+      <li><a href="#github-discussions" id="markdown-toc-github-discussions">GitHub Discussions</a>        <ul>
+          <li><a href="#发起讨论" id="markdown-toc-发起讨论">发起讨论</a></li>
+        </ul>
+      </li>
+      <li><a href="#github-wiki" id="markdown-toc-github-wiki">GitHub Wiki</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-杂项" id="markdown-toc-4-杂项">4 杂项</a>    <ul>
+      <li><a href="#邀请成员" id="markdown-toc-邀请成员">邀请成员</a></li>
+      <li><a href="#github-免密登陆" id="markdown-toc-github-免密登陆">GitHub 免密登陆</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-什么是-github">1 什么是 GitHub</h1>
+
+<p>GitHub 是全世界最大的面向开发者的代码托管平台，在分布式版本控制系统中扮演远程服务器的角色，帮助开发者们实现了代码和文档的高效协同开发，包括但不限于贡献代码（Pull Request），报告问题（Issues）和进一步的讨论（Discussions）。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://docs.github.com/zh/get-started">中文官方文档</a></td>
+      <td><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">多人开发视频教程（bilibili）</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="2-多人协同开发">2 多人协同开发</h1>
+
+<p>以下我们以 GitHub 为例，通过介绍 GitHub 项目主页上的每个条目，引入多人协同开发流程。这里我们希望你可以配合 <a href="git_tutorial.md">Git 的基本操作流程</a> 来在本地通过命令行更方便高效的进行项目管理。</p>
+
+<h2 id="在-github-上创建仓库">在 GitHub 上创建仓库</h2>
+
+<p>在个人主页 -&gt; Repositories 内点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">New</button>，填写仓库的信息，点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Create repository</button> 即可创建一个新的仓库。随后跟随 GitHub 的提示，将本地仓库推送到远程仓库。</p>
+
+<h2 id="在-github-上开发">在 GitHub 上开发</h2>
+
+<h3 id="从-github-克隆代码">从 GitHub 克隆代码</h3>
+
+<p>与其他开发者合作的第一步就是从远程仓库中获取项目的本地拷贝（项目的源码、历史记录、分支、标签都在里面），即克隆（clone）代码到本地。</p>
+
+<ol>
+  <li>
+    <p>以 Open-EM 项目为例，为了在本地可以方便的修改和编辑，首先在<a href="https://github.com/Cellverse/Open-EM">项目主页</a>的 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">&lt;&gt; Code</button> 中 Clone 命令下的 HTTPS 选项中点击 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path></svg> 复制仓库的 URL</p>
+
+    <div class="language-text highlighter-rouge"><pre class="highlight"><code> https://github.com/Cellverse/Open-EM.git
+</code></pre>
+    </div>
+
+    <p>。对于配置了 SSH key 的用户（<a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">如何新增SSH密钥到Github账户</a>），可以使用</p>
+
+    <div class="language-text highlighter-rouge"><pre class="highlight"><code> git@github.com:Cellverse/Open-EM.git
+</code></pre>
+    </div>
+
+    <p>这样在后续提交修改的代码时可以免于重复输入用户名和密码。</p>
+  </li>
+  <li>
+    <p>在本地打开终端，<code class="highlighter-rouge">git clone &lt;URL&gt;</code>: 克隆远程项目。</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">git clone &lt;URL&gt; &lt;name&gt;</code>: 可以指定本地文件夹的名字。</li>
+      <li>此时用 <code class="highlighter-rouge">git branch</code> 只能看到 <code class="highlighter-rouge">main</code> 分支，<strong>但是可以切换到 GitHub 上存在的分支</strong>。</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="从-github-拉取代码">从 GitHub 拉取代码</h3>
+
+<p>在进行本地开发的时候，其他的开发者可能向远程仓库提交了新的代码或进行了修改，因此我们需要从远程仓库中更新代码，即拉取代码（pull）到本地：</p>
+
+<ol>
+  <li>
+    <p>在对应的本地仓库的路径下打开终端，<code class="highlighter-rouge">git branch</code>: 确保在正确的分支下拉取代码。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">git pull origin &lt;branch&gt;</code>: 从远程仓库的指定分支拉取文件到文件夹。这条命令等同于下面两条命令</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">git fetch origin &lt;branch&gt;</code>: 从远程仓库的指定分支拉取文件到版本库。</li>
+      <li><code class="highlighter-rouge">git merge origin/&lt;branch&gt;</code>: 从版本库合并到本地文件夹。</li>
+    </ul>
+  </li>
+  <li>
+    <p>此时如果本地代码与远程代码有冲突，Git 会拒绝执行合并操作。此时你需要解决代码冲突。打开文本编辑器，搜索冲突标记 <code class="highlighter-rouge">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code class="highlighter-rouge">=======</code>、<code class="highlighter-rouge">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>，你将会看到类似于这样的文本：</p>
+
+    <div class="language-text highlighter-rouge"><pre class="highlight"><code> &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+ 远程仓库的文本
+ =======
+ 你的文本
+ &gt;&gt;&gt;&gt;&gt;&gt;&gt; &lt;YOUR_BRANCH&gt;
+</code></pre>
+    </div>
+
+    <p>选择你想要保留的文本，删除冲突标记，保存文件。</p>
+  </li>
+  <li>
+    <p><strong>提交并推送一个解决了版本冲突的本地最新版本</strong>。</p>
+  </li>
+</ol>
+
+<p>:bulb: 远程仓库名字 <code class="highlighter-rouge">origin</code> 与分支名字 <code class="highlighter-rouge">main</code> 一样，没有任何特别的含义，仅仅是因为约定俗成。<code class="highlighter-rouge">main</code> 是运行 <code class="highlighter-rouge">git init</code> 时默认的起始分支名字；<code class="highlighter-rouge">origin</code> 是运行 <code class="highlighter-rouge">git clone</code> 时默认的远程仓库名字。</p>
+
+<h3 id="推送代码到-github">推送代码到 GitHub</h3>
+
+<p>当本地开发完成时，你就可以将代码推送（push）到远程仓库：</p>
+
+<ol>
+  <li>在本地生成一个新的版本：
+    <ul>
+      <li><code class="highlighter-rouge">git add &lt;file&gt;</code>: 将文件添加到版本库，<code class="highlighter-rouge">&lt;file&gt;</code>是文件名，你也可以在项目的根目录下通过 <code class="highlighter-rouge">git add .</code> 添加所有有改动的文件。</li>
+      <li><code class="highlighter-rouge">git commit -m &lt;message&gt;</code>: 将文件提交到版本库，<code class="highlighter-rouge">&lt;message&gt;</code>是你希望备注给自己和其他开发者的修改简介，字数不宜太多。</li>
+      <li><code class="highlighter-rouge">git rebase -i HEAD~&lt;n&gt;</code>: （可选）将最近的 <code class="highlighter-rouge">n</code> 个版本合并为一个版本，让版本信息更加清晰。</li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#从-github-拉取代码">从远程仓库拉取代码</a>，一个分支可能由多个人同时开发，确保本地代码是最新的。</p>
+  </li>
+  <li><code class="highlighter-rouge">git push origin &lt;branch&gt;</code>: 将本地版本推送到远程仓库的指定分支。</li>
+</ol>
+
+<h2 id="github-issues">GitHub Issues</h2>
+
+<p>这里我们简单介绍一下<a href="https://github.com/Cellverse/Open-EM/issues">Issues</a>，它是 GitHub 开源项目中提出需求和 bug 的地方。</p>
+
+<h3 id="提出问题">提出问题</h3>
+
+<ol>
+  <li>在提出任何问题之前，如果已经有了不少被回答的问题，你可以先搜索是否有人已经提出了类似的问题来节约自己的时间，如果没有，你需要新建一个 issue。</li>
+  <li>点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">New</button>，填写问题描述，点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Submit new issue</button> 提交问题，等待其他人回答。</li>
+</ol>
+
+<h2 id="github-pull-requests">GitHub Pull Requests</h2>
+
+<p>当你<strong>不是</strong>某个开源项目的团队成员时，你必须先 Fork 开源仓库进行开发。Fork 的含义是分叉。具体来说：</p>
+
+<ol>
+  <li>在 GitHub 网页的右上角有一个 <code class="highlighter-rouge">Fork</code> 按钮，点击后原本仓库的一切历史信息会复制并创建一个新的仓库到自己的 GitHub 账户中。Fork 对原本的仓库没有影响。</li>
+  <li>在自己远端仓库开发完毕后，就可以创建 Pull Request 到原本的仓库。</li>
+</ol>
+
+<p>当你<strong>是</strong>某个开源项目的团队成员，你可以用更为直接的方法。</p>
+
+<ol>
+  <li>Clone 远程仓库到本地。</li>
+  <li><code class="highlighter-rouge">git checkout -b &lt;branch&gt;</code>: 在本地建立一个新的分支，<code class="highlighter-rouge">&lt;branch&gt;</code> 是你希望创建的分支名字，一般与你要开发的功能相关。
+    <ul>
+      <li>未经审核向 <code class="highlighter-rouge">main</code> 分支提交代码会扰乱开发流程，因此你需要在本地创建一个新的分支进行开发。</li>
+      <li>如果你想要在本地创建一个已经存在的远程分支，可以使用 <code class="highlighter-rouge">git checkout &lt;branch&gt;</code>。</li>
+    </ul>
+  </li>
+  <li>在本地进行开发，你可以执行多次<a href="#推送代码到-github">推送代码到 GitHub</a>。
+    <ul>
+      <li><code class="highlighter-rouge">git push --set-upstream origin &lt;branch&gt;</code>: 当你要将代码传到远程仓库的新分支时，你需要告诉远程仓库你创建了一个新的分支。</li>
+      <li>后续的提交仅需 <code class="highlighter-rouge">git push origin &lt;branch&gt;</code>。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">git checkout main</code>: 在新的 branch 上开发完毕后，切换回到 <code class="highlighter-rouge">main</code> 分支。</li>
+  <li><code class="highlighter-rouge">git pull origin main</code>: 拉取最新的代码。</li>
+  <li><code class="highlighter-rouge">git checkout &lt;branch&gt;</code>: 切换回到你的分支。</li>
+  <li><code class="highlighter-rouge">git rebase main</code>: 同步 <code class="highlighter-rouge">main</code> 分支的代码到你的分支，可能需要处理冲突。</li>
+  <li><code class="highlighter-rouge">git push -f origin &lt;branch&gt;</code>: 推送最终版本到远程仓库，随后你就可以在 GitHub 网页上创建 Pull Request 了。
+    <ul>
+      <li>由于 <code class="highlighter-rouge">rebase</code> 会改变提交的历史，因此你需要使用 <code class="highlighter-rouge">-f</code> 参数强制推送。</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="pull-request">Pull Request</h3>
+
+<ol>
+  <li>在原本的仓库页面的上方中点击 Pull requests，点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">New pull request</button>，可以比较两个分支。左侧的仓库 + 分支是目标分支，右侧的仓库 + 分支是来源分支。</li>
+  <li>当选定了目标分支和来源分支，并且两个分支之间没有冲突，点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Create pull request</button> 创建 Pull Request。</li>
+  <li>添加这次 Pull Request 的标题和描述，再点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Create pull request</button>，正式创建新的 Pull Request。由项目管理者进行代码审查和 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Merge pull request</button>。</li>
+</ol>
+
+<h3 id="代码审查">代码审查</h3>
+
+<p>当 Pull Request 提交后，团队管理者此时可以直接接受，要求一些符合项目规范的修改或建议（绝大多数情况），或者拒绝 Pull Request。一般情况下，经过几轮修改，优质的 Pull Request 就会被开发者接受。</p>
+
+<p>当项目中所要开发的特性都已经完成可以生成一个发布版本时候，就需要 <code class="highlighter-rouge">git tag</code>。</p>
+
+<p><code class="highlighter-rouge">git tag -a &lt;tag&gt; -m "message"</code> 打上标签做版本。</p>
+
+<p><code class="highlighter-rouge">git push --tag</code> 提交打上标签的版本到远端。</p>
+
+<h2 id="github-discussions">GitHub Discussions</h2>
+
+<p>Discussions 类似于 Issues，但是更加适合进行一般的讨论。除此之外，Discussions 的作用还有</p>
+
+<ul>
+  <li>共享公告和信息、收集反馈、计划和决策。</li>
+  <li>提出问题、讨论和回答问题，以及将讨论标记为已回答。</li>
+  <li>创建投票以衡量社区意见。</li>
+</ul>
+
+<h3 id="发起讨论">发起讨论</h3>
+
+<p>点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">New discussion</button>，再点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Get started</button> 选择讨论分类，填写讨论标题和内容，点击 <button style="border-radius:6px;background-color:#1f883d;color:white;font-family:Segoe UI;font-weight:500;text-align:center">Start discussion</button> 发起讨论。</p>
+
+<h2 id="github-wiki">GitHub Wiki</h2>
+
+<p>Wiki 是项目介绍文档。由项目管理者、团队成员和贡献者共同维护。目前 Open-EM 单独有<a href="www.open-em.cn">官网主页</a>，故不详细介绍此功能gi。</p>
+
+<h1 id="4-杂项">4 杂项</h1>
+
+<h2 id="邀请成员">邀请成员</h2>
+
+<p>GitHub 的 settings -&gt; collaborators 邀请，适合个人，单个项目。</p>
+
+<p>GitHub 的 organizations 邀请，适合团队，多个项目。</p>
+
+<h2 id="github-免密登陆">GitHub 免密登陆</h2>
+
+<ul>
+  <li>
+    <p>Git 自动管理凭证</p>
+
+    <p>一般 Windows 和 MAC 自带，在你第一次输入账号和密码后，后续提交就无需密码。</p>
+  </li>
+  <li>
+    <p>在配置文件中修改 <code class="highlighter-rouge">url</code></p>
+
+    <div class="language-text highlighter-rouge"><pre class="highlight"><code>  origin: url = https://gitHub.com/xxx/xxx.git
+  change: url = https://username:password@github.com/xxx/xxx.git
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>SSH</p>
+
+    <ol>
+      <li>
+        <p><code class="highlighter-rouge">$ ssh-kengen</code> 生成公钥和私钥，默认存放在 <code class="highlighter-rouge">~/.ssh/</code> 中，<code class="highlighter-rouge">id_rsa.pub</code> 为公钥，<code class="highlighter-rouge">id_rsa</code> 为私钥。</p>
+      </li>
+      <li>
+        <p>拷贝公钥到 GitHub 的 SSH and GPR keys 中。</p>
+      </li>
+      <li>
+        <p>在本地文件中配置 ssh 地址</p>
+
+        <div class="language-bash highlighter-rouge"><pre class="highlight"><code> git remote add origin git@github.com/&lt;user_name&gt;/&lt;repository&gt;.git
+</code></pre>
+        </div>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+
+                        
+                            <div class="share uk-text-center uk-margin-medium-top">
+    
+        <a class="uk-link-muted" href="https://twitter.com/intent/tweet?text=GitHub 教程&url=http://localhost:4000/docs/github_tutorial/&via=&related=" rel="nofollow" target="_blank" title="分享到 Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;"><span data-uk-icon="icon: twitter; ratio: 1.2"></span></a>
+    
+    
+        <a class="uk-link-muted uk-margin-small-left" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocs%2Fgithub_tutorial%2F" rel="nofollow" target="_blank" title="分享到 Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><span data-uk-icon="icon: facebook; ratio: 1.2"></span></a>
+    
+</div>
+                        
+                    </div>
+
+                    
+
+                    <hr class="uk-margin-medium">
+
+                    <script src="https://giscus.app/client.js" data-repo="Q-M-D/cs-self-learning"
+                    data-repo-id="R_kgDOIjUjaA" data-category="General" data-category-id="DIC_kwDOIjUjaM4CYRJe"
+                    data-mapping="og:title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="bottom" data-theme="noborder_light" data-lang="zh-CN" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+
+                    
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="uk-margin-large-top paginate-post">
+        <div class="uk-child-width-expand@s uk-grid-large uk-pagi" data-uk-grid>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>Relion_subtomo_averaging_code_review</h5>
+                    <div><a class="remove-underline hvr-back" href="/docs/relion_subtomo_averaging_code_review/">&larr; 上一页</a></div>
+                
+            </div>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>CryoET 的relion前处理</h5>
+                    <div class="uk-text-right"><a class="remove-underline hvr-forward" href="/docs/cryoET/">下一页 &rarr;</a></div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+                    <div class="uk-margin-large-top">
+    <h3>相关文档</h3>
+
+    
+    
+    
+
+    <ul class="uk-list link-secondary">
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    </ul>
+</div>
+
+
+                    
+
+                </article>
+
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class="uk-active"><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+
+    
+        
+    
+
+    
+
+    </body>
+
+</html>

@@ -1,0 +1,260 @@
+<ul id="markdown-toc">
+  <li><a href="#1-什么是-git-" id="markdown-toc-1-什么是-git-">1 什么是 Git ？</a></li>
+  <li><a href="#2-git-基本操作" id="markdown-toc-2-git-基本操作">2 Git 基本操作</a>    <ul>
+      <li><a href="#第一次进入-git-要做的事情个人配置" id="markdown-toc-第一次进入-git-要做的事情个人配置">第一次进入 Git 要做的事情–个人配置</a></li>
+      <li><a href="#创建本地库" id="markdown-toc-创建本地库">创建本地库</a></li>
+      <li><a href="#git-三个区域" id="markdown-toc-git-三个区域">Git 三个区域</a>        <ul>
+          <li><a href="#工作区" id="markdown-toc-工作区">工作区</a></li>
+          <li><a href="#暂存区" id="markdown-toc-暂存区">暂存区</a></li>
+          <li><a href="#版本库" id="markdown-toc-版本库">版本库</a></li>
+        </ul>
+      </li>
+      <li><a href="#版本回退" id="markdown-toc-版本回退">版本回退</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-git-分支" id="markdown-toc-3-git-分支">3 Git 分支</a></li>
+  <li><a href="#4-变基-rebase" id="markdown-toc-4-变基-rebase">4 变基 rebase</a>    <ul>
+      <li><a href="#合并版本操作" id="markdown-toc-合并版本操作">合并版本操作</a></li>
+      <li><a href="#合并分支操作" id="markdown-toc-合并分支操作">合并分支操作</a></li>
+      <li><a href="#合并拉取操作" id="markdown-toc-合并拉取操作">合并拉取操作</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-杂项" id="markdown-toc-4-杂项">4 杂项</a>    <ul>
+      <li><a href="#vscode--git-集成开发" id="markdown-toc-vscode--git-集成开发">VSCode + Git 集成开发</a></li>
+      <li><a href="#暂存" id="markdown-toc-暂存">暂存</a></li>
+      <li><a href="#3-个配置文件" id="markdown-toc-3-个配置文件">3 个配置文件</a></li>
+      <li><a href="#gitignore" id="markdown-toc-gitignore">.gitignore</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-什么是-git-">1 什么是 Git ？</h1>
+
+<p><a href="https://git-scm.com">Git</a> 是一种开源的分布式版本控制系统（Distributed Version Control System），常用于大型项目的版本管理。</p>
+
+<ol>
+  <li>
+    <p>什么是版本控制系统？</p>
+
+    <p>版本控制系统是用于管理文件不同版本的系统。一个项目（Project）可能有很多的版本（Version），也有很多的人在参与。在进行项目时，我们需要不停的更新版本，所以我们需要一个能够自动管理不同版本文件的系统，以方便我们进行回退，合并等操作。</p>
+  </li>
+  <li>
+    <p>什么是分布式？</p>
+
+    <p>版本控制系统有三种形式：局部式、集中式、分布式。</p>
+
+    <p>局部式：项目不同的版本在每个人自己电脑，可能导致不同人的版本差距较大，难以管理。</p>
+
+    <p>集中式：项目不在本地保存，都提交到远程服务器上，以便进行统一地版本管理。但是一旦远程服务器崩坏就会导致所有版本丢失。</p>
+
+    <p>分布式：结合了二者的优点，每个人在本地有自己的版本，提交到远程服务器后就有服务器的版本。二者之间版本并行，也可以通过 Git 进行同步。</p>
+  </li>
+</ol>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://git-scm.com/download">下载地址</a></td>
+      <td><a href="https://git-scm.com/docs">Git 文档</a></td>
+      <td><a href="https://www.bilibili.com/video/BV1zN4y1N7wz">视频教程</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="2-git-基本操作">2 Git 基本操作</h1>
+
+<h2 id="第一次进入-git-要做的事情个人配置">第一次进入 Git 要做的事情–个人配置</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git config --global user.name <span class="s2">"yourname"</span>
+git config --global user.email <span class="s2">"youremail"</span>
+</code></pre>
+</div>
+
+<p>在 Git 中，我们使用 <code class="highlighter-rouge">git config</code> 来配置 Git 的配置文件。</p>
+
+<h2 id="创建本地库">创建本地库</h2>
+
+<p>要创建本地库，请在一个未被 Git 管理的文件夹内依次输入已下指令。</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">git init</code>: 第一次创建本地库要做的事情，生成 <code class="highlighter-rouge">.git</code> 文件夹，使 Git 开始管理该文件夹。</p>
+  </li>
+  <li><code class="highlighter-rouge">git add &lt;file&gt;</code>: 使 Git 对文件开始进行管理。
+    <ul>
+      <li>或者：<code class="highlighter-rouge">git add .</code>: 使 Git 对文件夹内所有文件开始进行管理。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">git commit -m "message"</code>: 生成本地版本并添加提交信息，不要忘记 <code class="highlighter-rouge">-m</code> 和引号 <code class="highlighter-rouge">""</code>。</li>
+</ol>
+
+<p>以下是一些辅助指令：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">git status</code>: 检测当前文件夹内文件状态，红色代表未进行管理（新增文件或者修改原来的文件），绿色代表已进行管理。</li>
+  <li><code class="highlighter-rouge">git log </code>: 查看本地版本记录。</li>
+  <li>
+    <p><code class="highlighter-rouge">git log --graph </code>: 图形化有分支的查看本地版本。</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">git log --graph --pretty=format:"%h %s"</code>: 只显示哈希值和记录。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="git-三个区域">Git 三个区域</h2>
+
+<h3 id="工作区">工作区</h3>
+
+<p>包含已经被 Git 管理的文件和未被 Git 管理的文件或修改的文件。Git 会自动检测文件是否被管理。</p>
+
+<h3 id="暂存区">暂存区</h3>
+
+<p>用 <code class="highlighter-rouge">git add</code> 把工作区中未被 Git 管理的文件或修改的文件到提交暂存区。</p>
+
+<h3 id="版本库">版本库</h3>
+
+<p>用 <code class="highlighter-rouge">git commit</code> 把暂存区文件提交到版本库，生成本地版本。</p>
+
+<h2 id="版本回退">版本回退</h2>
+
+<p><code class="highlighter-rouge">git reset --soft &lt;version&gt;</code>: 把指定版本从版本库回退/前进到暂存区。</p>
+
+<p><code class="highlighter-rouge">git reset HEAD</code>: 把暂存文件从暂存区回退到工作区。</p>
+
+<p><code class="highlighter-rouge">git checkout -- &lt;file&gt;</code>: 把修改过的文件回退到上一个未修改版本的状态。</p>
+
+<p><code class="highlighter-rouge">git reset --hard &lt;version&gt;</code>: 把指定版本从版本库回退/前进到工作区。</p>
+
+<p><code class="highlighter-rouge">git reflog</code>: 查看本地操作记录和版本，通常在回退后找不到新版本时候使用。</p>
+
+<p>:bulb: <code class="highlighter-rouge">&lt;version&gt;</code> 可以从 <code class="highlighter-rouge">git log</code> 中查看，是一串 40 位长度的 16 进制哈希值。当你需要制定某个版本时，你只需要指定版本号的前 4 - 8 位即可，通常版本号的前 4 - 8 位大部分时候不会有冲突。</p>
+
+<p>以下的表格显示了从标题到左侧栏的 Git 操作。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">工作区</th>
+      <th style="text-align: center">暂存区</th>
+      <th style="text-align: center">版本库</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">工作区</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git checkout</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --mix</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">暂存区</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git add</code></td>
+      <td style="text-align: center">\</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --soft</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">版本库</td>
+      <td style="text-align: center">\</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git commit</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --hard</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="3-git-分支">3 Git 分支</h1>
+
+<p>git 每个版本只保留修改的记录（节省存储空间）。分支的存在使得一个版本可以产生多个新版本，添加新功能。最后再合并这些新功能。每一条分支是一个隔离的版本，分支间互不影响。</p>
+
+<p><code class="highlighter-rouge">git branch</code>: 查看现存分支。<code class="highlighter-rouge">*</code> 表示当前所在分支。</p>
+
+<p><code class="highlighter-rouge">git branch &lt;new branch&gt;</code>: 从当前分支新建分支。</p>
+
+<p><code class="highlighter-rouge">git checkout &lt;branch&gt;</code>: 切换到指定分支。</p>
+
+<p><code class="highlighter-rouge">git checkout -b &lt;branch&gt;</code>: 从当前分支新建并且切换到指定分支。</p>
+
+<p><code class="highlighter-rouge">git merge &lt;branch&gt;</code>: 把指定分支合并到当前分支。</p>
+
+<ul>
+  <li>合并可能因为版本不同产生冲突，这个时候文件中会存在各个分支修改的记录，再手动确定所需的修改即可。确定后记得再生成最新版本。</li>
+</ul>
+
+<p><code class="highlighter-rouge">git branch -d &lt;branch&gt;</code>: 删除指定分支。</p>
+
+<h1 id="4-变基-rebase">4 变基 rebase</h1>
+
+<p>该操作使得 Git 记录简洁。</p>
+
+<h2 id="合并版本操作">合并版本操作</h2>
+
+<p><code class="highlighter-rouge">git rebase -i HEAD~&lt;num&gt;</code>: 合并包括当前记录后 <code class="highlighter-rouge">&lt;num&gt;</code> 个版本。</p>
+
+<p><code class="highlighter-rouge">git rebase -i &lt;version&gt;</code>: 合并包括当前记录到指定版本之间的所有版本。</p>
+
+<p>注意：合并版本操作不要包含已经推送到远程仓库的版本，会导致无法预料到的麻烦。</p>
+
+<p>合并版本后会产生临时文件，选取版本并加上指令：<code class="highlighter-rouge">s</code> 代表压缩。随后再提交。</p>
+
+<h2 id="合并分支操作">合并分支操作</h2>
+
+<ol>
+  <li><code class="highlighter-rouge">git checkout &lt;branch1&gt;</code>: 切换到指定分支 <em>1</em>。</li>
+  <li><code class="highlighter-rouge">git rebase &lt;branch2&gt;</code>: 把当前分支 <em>1</em> 合并到指定分支 <em>2</em>，与 <code class="highlighter-rouge">git merge &lt;branch&gt;</code> 相反。</li>
+  <li><code class="highlighter-rouge">git checkout &lt;branch2&gt;</code>: 切换到指定分支 <em>2</em>。</li>
+  <li><code class="highlighter-rouge">git merge &lt;branch1&gt;</code>: 把指定分支 <em>1</em> 合并到当前分支 <em>2</em>。
+    <ul>
+      <li>如果产生冲突，解决完后用 <code class="highlighter-rouge">git rebase --continue</code>。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="合并拉取操作">合并拉取操作</h2>
+
+<p><code class="highlighter-rouge">git pull</code> 操作无形之间产生了新的分支。为不产生新的分支，先进行 <code class="highlighter-rouge">git fetch</code> 操作拉取远端版本，再用 <code class="highlighter-rouge">git rebase repository/branch</code> 合并分支。</p>
+
+<h1 id="4-杂项">4 杂项</h1>
+
+<h2 id="vscode--git-集成开发">VSCode + Git 集成开发</h2>
+
+<p>VSCode 内集成了 Git，可以在 VSCode 中进行部分简单的 Git 操作。但是我们强烈建议你完全了解每一条 Git 指令的含义，熟悉命令行操作，以便更好地理解 Git 的工作原理。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://code.visualstudio.com/docs/sourcecontrol/overview">官方文档</a></td>
+      <td><a href="https://www.bilibili.com/video/BV1SL4y1Y7s1">视频教程</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="暂存">暂存</h2>
+
+<p><code class="highlighter-rouge">git stash</code>: 把工作区的修改暂存起来。</p>
+
+<p><code class="highlighter-rouge">git stash show</code>: 查看暂存的修改。</p>
+
+<p><code class="highlighter-rouge">git stash pop</code>: 恢复暂存的修改。</p>
+
+<h2 id="3-个配置文件">3 个配置文件</h2>
+
+<p>Git 配置级别主要有以下 3 类：</p>
+
+<ol>
+  <li>项目级别 local，对应 <code class="highlighter-rouge">git config --local</code>，配置文件为仓库所在的 <code class="highlighter-rouge">.git</code> 文件夹中的 <code class="highlighter-rouge">config</code> 文件，优先级最高。</li>
+  <li>用户级别 global，对应 <code class="highlighter-rouge">git config --global</code>，配置文件为 <code class="highlighter-rouge">home/</code> 或者 <code class="highlighter-rouge">C:/user/&lt;name&gt;/</code> 中的 <code class="highlighter-rouge">.gitconfig</code> 文件，优先级次之。</li>
+  <li>系统级别 system，对应 <code class="highlighter-rouge">git config --system</code>，配置文件为 <code class="highlighter-rouge">etc/</code> 或者 <code class="highlighter-rouge">&lt;GIT&gt;/etc/</code> 的 <code class="highlighter-rouge">gitconfig</code> 文件，优先级最低。</li>
+</ol>
+
+<h2 id="gitignore">.gitignore</h2>
+
+<p>写在 .gitignore 文件中的文件名不会被 Git 管理。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">file/</code>：在该文件夹中的文件均会被忽略。</li>
+  <li><code class="highlighter-rouge">*.xx</code>：以 <code class="highlighter-rouge">.xx</code> 结尾的文件会被忽略。</li>
+  <li><code class="highlighter-rouge">!x.xx</code>：如果以 <code class="highlighter-rouge">.xx</code> 结尾的文件被忽略了，则 <code class="highlighter-rouge">!</code> 使得 <code class="highlighter-rouge">x.xx</code> 被管理。</li>
+  <li><em>甚至 .gitignore 本身也可以被 Git 忽略。</em></li>
+</ul>
+

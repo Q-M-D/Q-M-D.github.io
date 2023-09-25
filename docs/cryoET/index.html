@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>CryoET 的relion前处理 | Cellverse</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="CryoET 的relion前处理" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/docs/cryoET/" />
+<meta property="og:url" content="http://localhost:4000/docs/cryoET/" />
+<meta property="og:site_name" content="Cellverse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-25T18:05:01+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"dateModified":"2023-09-25T18:05:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docs/cryoET/"},"datePublished":"2023-09-25T18:05:01+08:00","url":"http://localhost:4000/docs/cryoET/","description":"OPEN-EN.","headline":"CryoET 的relion前处理","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-grid-large" data-uk-grid>
+
+            <div class="sidebar-fixed-width uk-visible@m">
+                <div class="sidebar-docs uk-position-fixed uk-margin-top">
+                    
+                    <h5>基础知识</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+                    
+                    </ul>
+                    
+                    <h5>数据处理案例</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class="uk-active"><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+                    
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="uk-width-1-1 uk-width-expand@m">
+
+                <article class="uk-article">
+
+                    <h1 class="uk-article-title">CryoET 的relion前处理</h1>
+
+                    
+
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        
+
+
+
+<div>
+  
+  <time datetime="2023-09-25T18:05:01+08:00" itemprop="datePublished">
+    
+    Sep 25, 2023
+  </time>
+</div>
+                    </div>
+
+                    <div class="article-content link-primary">
+                        <ul id="markdown-toc">
+  <li><a href="#1-软件简述" id="markdown-toc-1-软件简述">1. 软件简述</a></li>
+  <li><a href="#2-流程" id="markdown-toc-2-流程">2. <strong>流程</strong></a>    <ul>
+      <li><a href="#21-准备" id="markdown-toc-21-准备">2.1. <strong>准备</strong></a>        <ul>
+          <li><a href="#211-软件准备" id="markdown-toc-211-软件准备">2.1.1. <strong>软件准备</strong></a></li>
+          <li><a href="#212-数据准备" id="markdown-toc-212-数据准备">2.1.2. <strong>数据准备</strong></a></li>
+          <li><a href="#213-项目文件夹" id="markdown-toc-213-项目文件夹">2.1.3. <strong>项目文件夹</strong></a></li>
+          <li><a href="#214-数据文件夹" id="markdown-toc-214-数据文件夹">2.1.4. <strong>数据文件夹</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#22-是否需要前处理" id="markdown-toc-22-是否需要前处理">2.2. 是否需要前处理？</a>        <ul>
+          <li><a href="#221-前处理relion" id="markdown-toc-221-前处理relion">2.2.1. 前处理<strong>Relion</strong></a>            <ul>
+              <li><a href="#2211-进入import界面" id="markdown-toc-2211-进入import界面">2.2.1.1. <strong>进入Import界面：</strong></a></li>
+              <li><a href="#2212-进入montioncor2界面" id="markdown-toc-2212-进入montioncor2界面">2.2.1.2. <strong>进入Montioncor2界面：</strong></a></li>
+              <li><a href="#2213-ctf-corection" id="markdown-toc-2213-ctf-corection">2.2.1.3. <strong>CTF</strong> <strong>corection</strong></a></li>
+            </ul>
+          </li>
+          <li><a href="#222-制作stack文件" id="markdown-toc-222-制作stack文件">2.2.2. 制作stack文件:</a></li>
+          <li><a href="#223-提取ctf文件" id="markdown-toc-223-提取ctf文件">2.2.3. 提取CTF文件：</a></li>
+        </ul>
+      </li>
+      <li><a href="#23-对齐tiltseres-alinment" id="markdown-toc-23-对齐tiltseres-alinment">2.3. 对齐<strong>Tiltseres alinment</strong></a>        <ul>
+          <li><a href="#231-batch-tomograms" id="markdown-toc-231-batch-tomograms">2.3.1. batch tomograms</a>            <ul>
+              <li><a href="#2311-进入batch-setup" id="markdown-toc-2311-进入batch-setup">2.3.1.1. <strong>进入batch setup：</strong></a></li>
+              <li><a href="#2312-进入stacks" id="markdown-toc-2312-进入stacks">2.3.1.2. <strong>进入stacks：</strong></a></li>
+              <li><a href="#2313-进入dataset-values" id="markdown-toc-2313-进入dataset-values">2.3.1.3. 进入dataset values：</a></li>
+              <li><a href="#2314-进入run设置" id="markdown-toc-2314-进入run设置">2.3.1.4. 进入run：设置</a></li>
+              <li><a href="#2315-手动修正" id="markdown-toc-2315-手动修正">2.3.1.5. 手动修正</a>                <ul>
+                  <li><a href="#2315-存在伪影情况" id="markdown-toc-2315-存在伪影情况">2.3.1.5. <strong>存在伪影情况：</strong></a>                    <ul>
+                      <li><a href="#调整金颗粒对齐" id="markdown-toc-调整金颗粒对齐">调整金颗粒对齐</a></li>
+                      <li><a href="#创建alignment-stack-和reconstruction" id="markdown-toc-创建alignment-stack-和reconstruction"><strong>创建alignment stack 和reconstruction</strong></a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#2315-对于对齐失败的文件" id="markdown-toc-2315-对于对齐失败的文件">2.3.1.5. 对于对齐失败的文件：</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#3-particle-picking-cryolo" id="markdown-toc-3-particle-picking-cryolo">3. Particle picking ：Cryolo</a></li>
+  <li><a href="#4-计算subtomo-relion" id="markdown-toc-4-计算subtomo-relion">4. 计算subtomo ：relion</a>    <ul>
+      <li><a href="#41-预处理" id="markdown-toc-41-预处理">4.1. 预处理</a></li>
+      <li><a href="#42-hiv数据准备" id="markdown-toc-42-hiv数据准备">4.2. HIV数据准备：</a>        <ul>
+          <li><a href="#421-导入断层图像" id="markdown-toc-421-导入断层图像">4.2.1. 导入断层图像</a></li>
+          <li><a href="#422-导入坐标" id="markdown-toc-422-导入坐标">4.2.2. 导入坐标</a></li>
+          <li><a href="#423-制作伪子断层图" id="markdown-toc-423-制作伪子断层图">4.2.3. 制作伪子断层图</a></li>
+          <li><a href="#424-生成-3d-模型" id="markdown-toc-424-生成-3d-模型">4.2.4. 生成 3D 模型</a></li>
+          <li><a href="#425-初始-3d-细化" id="markdown-toc-425-初始-3d-细化">4.2.5. 初始 3D 细化</a></li>
+          <li><a href="#426-重建粒子" id="markdown-toc-426-重建粒子">4.2.6. 重建粒子</a></li>
+          <li><a href="#427-高分辨率-3d-细化" id="markdown-toc-427-高分辨率-3d-细化">4.2.7. 高分辨率 3D 细化</a>            <ul>
+              <li><a href="#4271-bin-2-处的伪次断层图" id="markdown-toc-4271-bin-2-处的伪次断层图">4.2.7.1. bin 2 处的伪次断层图</a></li>
+              <li><a href="#4272-在-bin-2-处运行自动优化作业" id="markdown-toc-4272-在-bin-2-处运行自动优化作业">4.2.7.2. 在 bin 2 处运行自动优化作业</a></li>
+              <li><a href="#4273-bin-1-处的伪断层图和参考图" id="markdown-toc-4273-bin-1-处的伪断层图和参考图">4.2.7.3. bin 1 处的伪断层图和参考图</a></li>
+              <li><a href="#4274-bin-1-运行自动优化作业" id="markdown-toc-4274-bin-1-运行自动优化作业">4.2.7.4. bin 1 运行自动优化作业</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-软件简述">1. 软件简述</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>前处理软件</th>
+      <th>需要的软件</th>
+      <th>对齐处理软件</th>
+      <th>Particle picking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gain reference<br />Motioncorrection<br />CTF correction</td>
+      <td><a href="https://relion.readthedocs.io/en/release-4.0/">Relion</a><br /><a href="http://www.warpem.com/warp/">Warp</a><br /><a href="https://bio3d.colorado.edu/imod/doc/etomoTutorial.html">EMAN2</a></td>
+      <td><a href="https://bio3d.colorado.edu/imod/doc/tomoguide.html#PatchTracking">IMOD</a><br />EMAN2<br /><a href="https://wiki.dynamo.biozentrum.unibas.ch/w/index.php/Main_Page">Dynamo</a></td>
+      <td>纤维<br />病毒<br />膜蛋白<br />颗粒</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>软件</td>
+      <td>适用范围</td>
+      <td>特点</td>
+      <td>自动化程度</td>
+      <td>速度</td>
+      <td>准确</td>
+      <td>缺点</td>
+      <td>衔接脚本</td>
+    </tr>
+    <tr>
+      <td>Dynamo</td>
+      <td>异形：球体，膜蛋白，纤维</td>
+      <td>手动，界面古早</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>手动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>cryolo</td>
+      <td>纤维，颗粒</td>
+      <td>filament不错</td>
+      <td> </td>
+      <td> </td>
+      <td>不错</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>tomotwin</td>
+      <td>颗粒</td>
+      <td>通用模型，聚类分析</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Warp-BoxNet</td>
+      <td>颗粒</td>
+      <td>template</td>
+      <td> </td>
+      <td> </td>
+      <td>一般</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>IMOD</td>
+      <td> </td>
+      <td>可以加脚本</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>手动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>EMAN2</td>
+      <td> </td>
+      <td>没用过</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>deepfinder</td>
+      <td> </td>
+      <td>没用过</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="2-流程">2. <strong>流程</strong></h1>
+
+<h2 id="21-准备">2.1. <strong>准备</strong></h2>
+
+<h3 id="211-软件准备">2.1.1. <strong>软件准备</strong></h3>
+
+<ul>
+  <li>
+    <p>Relion</p>
+  </li>
+  <li>
+    <p>IMOD</p>
+  </li>
+  <li>
+    <p>Cryolo等particle piking软件</p>
+  </li>
+  <li>
+    <p>CTFFIND</p>
+  </li>
+</ul>
+
+<h3 id="212-数据准备">2.1.2. <strong>数据准备</strong></h3>
+
+<ul>
+  <li>
+    <p>Gain reference: .gain</p>
+  </li>
+  <li>
+    <p>rawdata：.st .eer .mrc</p>
+  </li>
+  <li>
+    <p>Mdoc：.mdoc</p>
+  </li>
+</ul>
+
+<h3 id="213-项目文件夹">2.1.3. <strong>项目文件夹</strong></h3>
+
+<p><code class="highlighter-rouge">./project</code></p>
+
+<ul>
+  <li>
+    <p>gain：gain文件</p>
+  </li>
+  <li>
+    <p>rawdata：原始的每个角度图像数据.eer/.mrc/.tiff</p>
+  </li>
+  <li>
+    <p>rawtilt：根据原始数据按照一定倾转顺序叠成的stack文件.st/.mrc</p>
+  </li>
+  <li>
+    <p>mdoc：每套tomo收集的信息说明文件.mdoc</p>
+  </li>
+  <li>
+    <p>particlepick：之后用作particle picking</p>
+  </li>
+</ul>
+
+<h3 id="214-数据文件夹">2.1.4. <strong>数据文件夹</strong></h3>
+
+<p><code class="highlighter-rouge">./rawdata</code></p>
+
+<p>.eer</p>
+
+<p>.mrc等</p>
+
+<h2 id="22-是否需要前处理">2.2. 是否需要前处理？</h2>
+
+<p>请先根据自己的需求判断是否需要前处理：</p>
+
+<ul>
+  <li>
+    <p>Gainreference</p>
+  </li>
+  <li>
+    <p>Motioncorrection</p>
+  </li>
+  <li>
+    <p>CTF correction</p>
+  </li>
+</ul>
+
+<h3 id="221-前处理relion">2.2.1. 前处理<strong>Relion</strong></h3>
+
+<p>在project目录中打开relion</p>
+
+<p><code class="highlighter-rouge">relion&amp;</code></p>
+
+<h4 id="2211-进入import界面">2.2.1.1. <strong>进入Import界面：</strong></h4>
+
+<p><strong>Movies/mics</strong></p>
+
+<ul>
+  <li>
+    <p>Raw input files ： 输入原始文件所在的文件夹相对路径，如：rawtilts/*.eer</p>
+  </li>
+  <li>
+    <p>Are these multi-frame：yes 一般都为多帧图片</p>
+  </li>
+  <li>
+    <p>Pixel size（angstrom）：数据收集的像素大小</p>
+  </li>
+  <li>
+    <p>voltage（kv）：数据收集的电镜电压条件</p>
+  </li>
+  <li>
+    <p>Spherical aberration（mm）：300KV电镜的球差为2.7</p>
+  </li>
+</ul>
+
+<p><img src="./Pastedimage20230823185642.png" alt="" /></p>
+
+<p><strong>Others</strong></p>
+
+<p>Import other node types? : no</p>
+
+<p><img src="./Pastedimage20230823185718.png" alt="" /></p>
+
+<p><strong>Running</strong> 默认参数</p>
+
+<p>点击run！</p>
+
+<h4 id="2212-进入montioncor2界面">2.2.1.2. <strong>进入Montioncor2界面：</strong></h4>
+
+<p><strong>I/O</strong></p>
+
+<p>Input movies STAR file: 导入刚刚生成的job中的movies.star import/job001/movies.star</p>
+
+<p>此时根据原始图片的帧数和数据收集的电子计量进行分组：</p>
+
+<p>用IMOD 的header 指令查看单张图片的帧数</p>
+
+<p><code class="highlighter-rouge">header rawtilts_001_1.eer</code></p>
+
+<p>eer采取的是high resulution数据收集模式，其原始数据的大小为4096 4096 ，第三个数字就为图片的帧数462</p>
+
+<p><img src="./Pastedimage20230823185803.png" alt="" /></p>
+
+<p>决定将多少（内部）帧分为一个组呢？例如，如果您的图片有 1000 帧，并将它们按每30 帧分为一组，您将得到 33 组。剩余的 10 (= 1000 - 30 * 33) 帧将被忽略。分组太细会导致处理速度非常慢和内存不足的错误。整张图片电子计量除以组数则为每组的电子计量（dose per frame）， relion推荐值为0.5至1.25 e/A2。具体介绍参考<a href="https://www3.mrc-lmb.cam.ac.uk/relion/index.php/Image_compression#Falcon4_EER">relion</a></p>
+
+<p>对于此套数据而言： 462帧，5e/A2</p>
+
+<p>462/33=14</p>
+
+<p>5/14=0.357</p>
+
+<p><strong>Dose per frame</strong>：0.36</p>
+
+<p><strong>EER fractionation</strong>：33</p>
+
+<p>其他的选项保持默认参数</p>
+
+<p><img src="./Pastedimage20230823185822.png" alt="" /></p>
+
+<p><strong>Motion</strong></p>
+
+<p>Bfactor：150</p>
+
+<p>Number of patches X,Y:5 5</p>
+
+<p>Gain-reference image：选择数据收集时的gain文件</p>
+
+<p><img src="./Pastedimage20230823191455.png" alt="" /></p>
+
+<p><strong>Running</strong></p>
+
+<p>MPI 和threads根据条件调整</p>
+
+<p><strong>Additional arguments ：</strong>–eer_upsampling 2如果您在 8K 网格中工作，请添加。默认为4K，</p>
+
+<p>即–eer_upsampling 1</p>
+
+<p><img src="./Pastedimage20230823191505.png" alt="" /></p>
+
+<p><strong>点击run！</strong></p>
+
+<h4 id="2213-ctf-corection">2.2.1.3. <strong>CTF</strong> <strong>corection</strong></h4>
+
+<p><strong>I/O</strong></p>
+
+<p>input选择job2中的corrected_micrographs.star</p>
+
+<p>其他默认参数</p>
+
+<p><img src="./Pastedimage20230823191656.png" alt="" /></p>
+
+<p><strong>CTFFIND-4.1</strong></p>
+
+<p>Use ctffind-4.1：yes</p>
+
+<p>ctffind-4.1 executable：CTFFIND安装文件地址</p>
+
+<p>其他参数默认</p>
+
+<p><img src="./Pastedimage20230823191718.png" alt="" /></p>
+
+<p><strong>Gctf</strong> 选择no</p>
+
+<p><strong>Running</strong></p>
+
+<p>MPI数量根据计算条件进行选择</p>
+
+<p><img src="./Pastedimage20230823191732.png" alt="" /></p>
+
+<p>点击Run！</p>
+
+<h3 id="222-制作stack文件">2.2.2. 制作stack文件:</h3>
+
+<p>将motion correction中的mrc文件提取出来根据mdoc文件信息叠成stack文件.st，并添加角度信息和roangle信息到.st文件中</p>
+
+<p>使用脚本：<a href="eer2stack_addtilt.sh" download="eer2stack_addtilt.sh">eer2stack_addtilt.sh</a></p>
+
+<p>将叠好的stack文件 .st放入rawtilts文件夹</p>
+
+<h3 id="223-提取ctf文件">2.2.3. 提取CTF文件：</h3>
+
+<p>运行脚本：<a href="makectftxt.py" download="makectftxt.py">makectftxt.py</a></p>
+
+<p>将.txt文件提出</p>
+
+<h2 id="23-对齐tiltseres-alinment">2.3. 对齐<strong>Tiltseres alinment</strong></h2>
+
+<p>对齐数据以HIV的数据为例，演示为金颗粒的对齐流程</p>
+
+<p>IMOD</p>
+
+<p>在rawtilt文件夹下：</p>
+
+<p><code class="highlighter-rouge">etomo</code></p>
+
+<h3 id="231-batch-tomograms">2.3.1. batch tomograms</h3>
+
+<p>选择batch tomograms批量处理对齐</p>
+
+<p><img src="./Pastedimage20230823191755.png" alt="" /></p>
+
+<h4 id="2311-进入batch-setup">2.3.1.1. <strong>进入batch setup：</strong></h4>
+
+<p>选择move stacks to dataset directories under their current locations 在当前的文件夹下给每个文件创建新的文件夹并在新的文件夹下分别进行对齐</p>
+
+<p>System template：选择cryosample.adoc</p>
+
+<p><img src="./Pastedimage20230823192323.png" alt="" /></p>
+
+<h4 id="2312-进入stacks">2.3.1.2. <strong>进入stacks：</strong></h4>
+
+<p>点击Add stack(s) ：将文件夹中的mrc文件全选加入</p>
+
+<p><img src="./Pastedimage20230823192335.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823192353.png" alt="" /></p>
+
+<h4 id="2313-进入dataset-values">2.3.1.3. 进入dataset values：</h4>
+
+<p>选择remove x-rays</p>
+
+<p>Coarse aligned stack binning -single frame ：1</p>
+
+<p>Alinment method：选择autoseed and track 自动挑选金颗粒对齐</p>
+
+<p>Bead size(nm)：10</p>
+
+<p>Target number of beads：10</p>
+
+<p>Do positioning ：选择cryo sample</p>
+
+<p>Tomograms thickness： 1600 （这个是bin1重构的数值，可根据样品的厚度进行更改）</p>
+
+<p>Aglined stack binning：4 （根据自己particle picking的需求进行分箱处理，一般bin4或者bin8都能满足后期的particle picking）</p>
+
+<p><strong>重构条件：</strong></p>
+
+<p>选择R-weighted backprojection 和SIRT-like filter</p>
+
+<p>Equivalent iterations：30</p>
+
+<p>Thickness total(binned pixels):400 （bin4 的层数）</p>
+
+<p>Postprocessing 里选择postprocess with trimvol</p>
+
+<p><img src="./Pastedimage20230823192641.png" alt="" /></p>
+
+<h4 id="2314-进入run设置">2.3.1.4. 进入run：设置</h4>
+
+<p>根据自己的计算条件选择 CPU和GPU</p>
+
+<p>点击run</p>
+
+<p><img src="./Pastedimage20230823192710.png" alt="" /></p>
+
+<h4 id="2315-手动修正">2.3.1.5. 手动修正</h4>
+
+<p>等待运行完之后：可以点击每个文件对应的open rec （绿色） 按钮，查看重构好的文件是否存在伪影或是对其效果不好的</p>
+
+<p>如果对齐效果不好或是未能成功重构的情况，点击open set按钮（浅蓝色）按钮进行参数调整：</p>
+
+<p><img src="./Pastedimage20230823192721.png" alt="" /></p>
+
+<h5 id="2315-存在伪影情况">2.3.1.5. <strong>存在伪影情况：</strong></h5>
+
+<p>存在伪影的TS_1:</p>
+
+<p><img src="./Pastedimage20230823192734.png" alt="" /></p>
+
+<h6 id="调整金颗粒对齐">调整金颗粒对齐</h6>
+
+<p>大多数情况是金颗粒对齐需要调整：进去fine alignment complete</p>
+
+<p>点击view/edit fiducial model 进行手动调整</p>
+
+<p><img src="./Pastedimage20230823192745.png" alt="" /></p>
+
+<p>根据快捷键点击“按键可以查看那些点偏离，红色的箭头为建议更改的位置方向，用鼠标指到更改的位置，点击鼠标右键确认移动，点的追踪的未知一般选择在金颗粒的质心，建议将金颗粒放大倍数调整</p>
+
+<p><img src="./Pastedimage20230823192759.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823192827.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823192838.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823192928.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823192935.png" alt="" /></p>
+
+<p>调整完毕关闭3dmod 弹窗点击yes</p>
+
+<p><img src="./Pastedimage20230823193002.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193007.png" alt="" /></p>
+
+<h6 id="创建alignment-stack-和reconstruction"><strong>创建alignment stack 和reconstruction</strong></h6>
+
+<p>进入fine alignment stack complete ：</p>
+
+<p>binning大小选择bin4，点击create full agligned stack （分箱数可以根据自己的图像决定，便于颗粒挑选为准）</p>
+
+<p>进入tomogram generation complete：</p>
+
+<p>选择back projection</p>
+
+<p>将tomogram thickness in Z ：1600 （这里填写的是bin1的Z轴数值，实际重构的图像会根据分箱数决定，例如bin4的Z轴为400）</p>
+
+<p>选择use SIRT-like filter equlvalent to : 30 iteration (back projection的SIRT-like filter 与SIRT filter 效果非常相似并且重构速度更快，一般30次的迭代效果足够 )</p>
+
+<p>其他值默认</p>
+
+<p>进入post-processing in progress：</p>
+
+<p>查看XYZ的大小是否符合分箱大小（bin4为bin1的四分之一），</p>
+
+<p>选择 Rotate around X axis （在重构的过程中imod会将yz轴翻转，此步骤是将其调整回来）</p>
+
+<p>其他值默认点击trim volume</p>
+
+<p><img src="./Pastedimage20230823193018.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193022.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193028.png" alt="" /></p>
+
+<h5 id="2315-对于对齐失败的文件">2.3.1.5. 对于对齐失败的文件：</h5>
+
+<p>进入到失败的程序部分，玫红色fiducial model gen. in progress 失败的原因可能是无法自动创建和追踪金颗粒</p>
+
+<p><img src="./Pastedimage20230823193037.png" alt="" /></p>
+
+<p>我们可以手动添加金颗粒进入seed bead界面：</p>
+
+<p><img src="./Pastedimage20230823193043.png" alt="" /></p>
+
+<p>Total number：10 （一般来说均匀分布的5个金颗粒就足够对齐）</p>
+
+<p>点击generate seed model</p>
+
+<p>点击open seed model，查看选择的金颗粒是否均匀分布数量足够，</p>
+
+<p>可以看到自动挑选选取了四个金颗粒</p>
+
+<p><img src="./Pastedimage20230823193053.png" alt="" /></p>
+
+<p>那么我们进行手动添加在选中的金颗粒上鼠标左键单击（选中当前页），再点击中间（添加金颗粒）金颗粒出现绿色圈，黄色内圈代表选中的是当前的金颗粒，重复此操作指导金颗粒数量足够。关闭3dmod 弹窗点击save</p>
+
+<p><img src="./Pastedimage20230823193101.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193107.png" alt="" /></p>
+
+<p>进入到track beads界面点击track seed model ，log窗口会提示没有追踪到的points</p>
+
+<p><img src="./Pastedimage20230823193112.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193210.png" alt="" /></p>
+
+<p>log窗口显示有49个点缺失，如果金颗粒数量足够多可以删去多数tilt都追不到的金颗粒，也可以手动进行添加</p>
+
+<p>点击 fix fiducial model</p>
+
+<p><img src="./Pastedimage20230823193232.png" alt="" /></p>
+
+<p>对某一个tilt缺失的金颗粒进行追加，需要注意的是，先到前一个tilt的金颗粒绿圈用鼠标左键选中（指定是这个金颗粒）再到缺失的tilt的金颗粒用中键点击创建，如果不进行指定会创建新的追踪。</p>
+
+<p><img src="./Pastedimage20230823193238.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193243.png" alt="" /></p>
+
+<p>进入fine alignment complete：</p>
+
+<p>点击compute alignment，查看log窗口，看金颗粒追踪误差的均值和方差 越小越好</p>
+
+<p>在这里可以继续<strong>调整金颗粒</strong>（看调整金颗粒教程）</p>
+
+<p><img src="./Pastedimage20230823193345.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193352.png" alt="" /></p>
+
+<p>调整好后进行<strong>创建alignment stack 和reconstruction</strong></p>
+
+<p>将重构好的bin4文件转移出来进行particle picking：</p>
+
+<p><code class="highlighter-rouge">mv /_rec.mrc ../particlepick</code></p>
+
+<p>将相应的CTF文件转移到每个tomo的文件夹中</p>
+
+<h1 id="3-particle-picking-cryolo">3. Particle picking ：<a href="https://cryolo.readthedocs.io/en/stable/tutorials/tutorial_overview.html#tutorial-6-pick-filaments-in-tomograms">Cryolo</a></h1>
+
+<p>请注意挑选颗粒的重构文件为bin4，记得将坐标文件转换为bin1</p>
+
+<p>经过以上的操作步骤此时我们文件为：</p>
+
+<p>./project</p>
+
+<p>gain :gain文件</p>
+
+<p>rawdata：原始的每个角度图像数据.eer/.mrc/.tiff</p>
+
+<p>rawtilt：每个tomo命名的文件夹里面有imod对齐的文件以及ctf文件</p>
+
+<p>mdoc：每套tomo收集的信息说明文件.mdoc</p>
+
+<p>particlepick：重构文件rec以及颗粒坐标文件</p>
+
+<h1 id="4-计算subtomo-relion">4. 计算subtomo ：<a href="https://relion.readthedocs.io/en/release-4.0/STA_tutorial/index.html">relion</a></h1>
+
+<h2 id="41-预处理">4.1. 预处理</h2>
+
+<p>relion需要用户提供在外部对断层图像进行预处理，所需的信息是：</p>
+
+<p>倾斜系列对齐：应该使用IMOD包来完成。标准 IMOD 管道通常被接受，但请注意，并非所有 IMOD 选项都受支持。</p>
+
+<p>初始 CTF 参数：可以通过CTFFind或CtfPlotter来估计它们。</p>
+
+<p>顺序列表：倾斜系列采集的时间顺序。</p>
+
+<p>分数电子剂量：每个倾斜图像的电子剂量。</p>
+
+<p>在前处理的步骤中我们已经准备好所需的所有文件，如果是用户自己处理请按照以下格式检查所需文件：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文件夹</td>
+      <td>子文件夹</td>
+      <td>文件</td>
+      <td>备注</td>
+    </tr>
+    <tr>
+      <td>project</td>
+      <td>input</td>
+      <td>tomograms_descr.star</td>
+      <td>包含所需信息的描述文件</td>
+    </tr>
+    <tr>
+      <td>order_list.csv</td>
+      <td>（一个2列、以逗号分隔的文件，其中包含倾斜系列的帧顺序列表，其中第一列是帧（图像）编号（从1开始），第二列是倾斜角度（以度为单位）。如果该值在输入断层图像中有所不同，则使用描述输入 STAR 文件中其自己的列来指定它。）</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Coords_tomo.csv</td>
+      <td>particle的坐标文件</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Tomograms/每套数据创建一个单独的文件夹/每个文件夹里包含的文件为</td>
+      <td>原始stack文件</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>imod对齐文件</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Ctf_output.txt文件</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以HIV的标准数据集为例进展示，<a href="https://relion.readthedocs.io/en/release-4.0/STA_tutorial/index.html">relion</a>的subtomo流程如下：</p>
+
+<p><img src="./Pastedimage20230823193427.png" alt="" /></p>
+
+<h2 id="42-hiv数据准备">4.2. HIV数据准备：</h2>
+
+<p>HIV准备：</p>
+
+<p><code class="highlighter-rouge">wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion40_sta_tutorial_data.tar</code></p>
+
+<p><code class="highlighter-rouge">tar -xf relion40_sta_tutorial_data.tar</code></p>
+
+<h3 id="421-导入断层图像">4.2.1. 导入断层图像</h3>
+
+<p>本节介绍如何导入已使用IMOD对齐断层图像的数据集以及使用CTFFind或CtfPlotter估计的 CTF 。</p>
+
+<p>要做的第一步是将断层图像集导入管道中。为此，我们必须首先创建一个.star包含所需信息的描述文件，每个断层图像一行。基本字段是倾斜系列堆栈文件名、CTF 估计数据文件名和IMOD项目文件夹。例如，tomograms_descr.star本教程中使用的文件包含以下字段：</p>
+
+<p>data_</p>
+
+<p>loop_</p>
+
+<p>_rlnTomoName</p>
+
+<p>_rlnTomoTiltSeriesName</p>
+
+<p>_rlnTomoImportCtfFindFile</p>
+
+<p>_rlnTomoImportImodDir</p>
+
+<p>_rlnTomoImportFractionalDose</p>
+
+<p>TS_01 tomograms/TS_01/01.mrc tomograms/TS_01/01_output.txt tomograms/TS_01 3.0</p>
+
+<p>TS_03 tomograms/TS_03/03.mrc tomograms/TS_03/03_output.txt tomograms/TS_03 3.0</p>
+
+<p>TS_43 tomograms/TS_43/43.mrc tomograms/TS_43/43_output.txt tomograms/TS_43 3.1</p>
+
+<p>TS_45 tomograms/TS_45/45.mrc tomograms/TS_45/45_output.txt tomograms/TS_45 3.1</p>
+
+<p>TS_54 tomograms/TS_54/54.mrc tomograms/TS_54/54_output.txt tomograms/TS_54 3.0</p>
+
+<p>rlnTomoName标签是每个断层图像的唯一标识符，如果此描述文件中没有提供，则会自动创建（更多信息可在relion_tomo_import_tomograms程序帮助中找到）。请注意，在该数据集中，电子剂量不是恒定的，因此在导入断层图像时，应在描述文件中提供电子剂量，而不是作为全局参数。</p>
+
+<p>Job1</p>
+
+<p>在GUI中，从左侧的作业类型浏览器中选择Tomo import，并在Tomograms选项卡上填写以下参数：</p>
+
+<p><img src="./Pastedimage20230823193501.png" alt="" /></p>
+
+<p>您可以在名为Current job:Give_alias_here的白色字段中为此作业提供一个有意义的别名（例如：tomograms）。点击Run！按钮将启动作业。将创建一个名为ImportTomo/job001/的目录，以及指向该目录的名为ImportToo/tomograms的符号链接。在新创建的目录中，将创建断层图像集tomograms.star文件。它包含一个具有断层图像特性的表，以及每个断层图像的特定表，包括投影矩阵、像散散散焦、累积辐射剂量和每个倾斜帧的形变。（请参阅relion_too_import_tomograms程序帮助）。</p>
+
+<h3 id="422-导入坐标">4.2.2. 导入坐标</h3>
+
+<p>Job2</p>
+
+<p>构建伪子断层所需的最小数据是每个粒子的3D坐标集和相应的断层图像名称。像素坐标应与newst.com tilt.com文件为原始像素大小（Bin1）提供的尺寸和偏移量相关（请参见导入断层图像）。在导入坐标过程中，它会检查相关断层图像集tomograms.star文件中是否存在所有粒子的断层图像名称，并将相应的data_optics表添加到输出particles.star文件（有关详细信息，请参阅relion_tomo_import_particles程序帮助和粒子集描述）。</p>
+
+<p><img src="./Pastedimage20230823193545.png" alt="" /></p>
+
+<p>在新创建的目录中，您将找到导入的粒子集 particles.star文件和一个optimiser_set.star文件。</p>
+
+<p>如果您在不同的项目中对粒子进行了预处理，则可以在“其他”选项卡上使用相同的Tomo 导入作业类型来导入粒子星文件、3D 参考、3D 蒙版等。请注意，这不是运行relion的推荐方法，并且用户负责生成正确的star文件。</p>
+
+<h3 id="423-制作伪子断层图">4.2.3. 制作伪子断层图</h3>
+
+<p>Job3</p>
+
+<p>在使用任何常规relion程序（不是专门用于断层扫描的程序，例如relion_refine）进行处理之前，我们首先需要构建单独的伪子断层图粒子，相当于SPA工作流中的粒子提取过程。</p>
+
+<p>伪子图粒子文件不仅与粒子集有关。事实上，它们还依赖于断层图像集（倾斜序列对齐、散焦估计……），并且在粒子的运动已经细化的情况下，依赖于轨迹集。因此，每次运行Tomo帧对齐或Tomo CTF细化作业类型时，都应重建一组新的更新伪子模粒子，以保持能使用常规relion程序进行处理。在特定的tomo relion程序（前缀名称relion_too_）的情况下，这是不必要的，因为它们直接被提供原始倾斜系列堆栈文件，因此所引用的伪子tomo文件被忽略。</p>
+
+<p>在本教程中，我们将首先在装箱中以较低分辨率构建粒子</p>
+
+<p><img src="./Pastedimage20230823193606.png" alt="" /></p>
+
+<p>注意，断层扫描残余程序的MPI版本在断层图像库中并行化，也就是说，断层图像将分布在多个处理器之间。因此，如果MPI进程的数量大于断层图像的数量，则不会提高性能。使用上面的设置，这项工作在我们的系统上只花了不到10分钟。</p>
+
+<p>您的伪子图粒子及其相关的CTF和多重模式将存储在名为PseudoSubtomo/job003/Subtomograms/的新目录中的MRC文件中，并由tomogram文件夹分隔。您可以检查是否与更新的particles.star文件一起创建了optimision_set.star文件。</p>
+
+<h3 id="424-生成-3d-模型">4.2.4. 生成 3D 模型</h3>
+
+<p>Job4</p>
+
+<p>relion-4.0使用梯度驱动算法从伪子图生成从头3D初始模型。从4.0版开始，该算法与CryoSPARC程序中的SGD算法不同。如果你有一个合理的角度方向分布，该算法可能会产生一个合适的低分辨率模型，随后可以用于3D分类或3D自动细化。</p>
+
+<p>本教程中使用的样本通常允许在拾取过程中获得与球体表面垂直的初始方向，该方向可用作初始参考。然而，在这里我们将展示如何在没有任何先验知识的情况下获得从头模型。</p>
+
+<p><img src="./Pastedimage20230823193752.png" alt="" /></p>
+
+<p>分析结果</p>
+
+<p>您可使用类似UCSF嵌合体的3D查看器查看梯度驱动算法（InitialModel/job008/run_it100_class001.mrc）的输出图。您可能应该确认对称点组是正确的，对称轴是正确识别的。如果是这样，对称的输出映射（InitialModel/job008/initil_model.mrc）看起来应该类似于梯度驱动算法的输出映射。</p>
+
+<h3 id="425-初始-3d-细化">4.2.5. 初始 3D 细化</h3>
+
+<p>Job5</p>
+
+<p>一旦我们有了初始参考图，就可以使用relion中的3D 自动细化程序以全自动方式将数据集细化为高分辨率。该过程采用所谓的黄金标准方法，从独立细化的半重建中计算傅立叶壳相关性（FSC），以估计分辨率，从而可以避免自我增强的过度拟合。结合估计角度分配精度的程序，它会自动确定细化何时收敛。因此，这个过程需要很少的用户输入，即它保持客观，并且已经被观察到为许多数据集产生了优秀的地图。另一个优点是，通常只需要运行一次，因为几乎没有任何参数需要优化。</p>
+
+<p>然而，由于与 SPA 相比，伪次断层图文件需要更多的内存资源，因此我们建议分几个步骤运行此过程，从高分箱因子到 1，以缩短处理时间。由于初始模型是使用分箱因子为 4 的伪子断层图进行处理的，因此我们将使用这些相同的粒子开始 3D 细化。</p>
+
+<p><img src="./Pastedimage20230823193803.png" alt="" /></p>
+
+<p>tip1</p>
+
+<p>在“自动采样”选项卡上，通常可以保留默认值。请注意， “采样”选项卡上的方向采样率仅在前几次迭代中使用，从那时起，算法将自动增加角度采样率直至收敛。因此，对于小于八面体或二十面体对称性的所有细化，我们通常使用 7.5 度的默认角度采样，并从 1.8 度的采样进行局部搜索。仅对于更高的对称性细化，我们使用 3.7 度采样并从 0.9 度开始执行局部搜索。</p>
+
+<p>tip2</p>
+
+<p>由于MPI节点分为一个领导者（除了指挥其他人之外什么都不做）和两组追随者（他们在两个半集上完成所有工作），因此使用奇数个MPI处理器是最有效的，3D自动细化作业的MPI进程的最小数量为3。在最后的迭代中，内存需求可能会显著增加，因为奈奎斯特之前的所有频率都将被考虑在内，因此对于比这个测试数据集中的盒子更大的盒子，您可能希望使用与集群节点上的内核一样多的线程来运行。</p>
+
+<p>在有4个GPU的计算机上，使用了5个MPI和8个线程，这一计算大约需要1个小时。</p>
+
+<p>tip3</p>
+
+<p>在每次迭代时，程序都会写出两个run_it0_一半_model.star和两个run_it0_一半_class001.mrc文件：每个文件对应一个独立细化的一半数据。只有在收敛时，才会写出一个run_model.star和run_class001.mrc文件（它们的名称中没有_it0？？）。因为在最后一次迭代中，两个独立的半重建被连接在一起，所以分辨率通常会在最后一个迭代中显著提高。由于程序将使用奈奎斯特频率的所有数据，因此此迭代还需要更多的内存和CPU。</p>
+
+<p>请注意，角度采样的自动增加是自动细化过程的一个重要方面。该程序不会使用比它认为必要的更精细的角度和平移采样率（因为它不会改善结果）。估计的精度和采用的采样率，以及当前的分辨率估计都存储在_optiminus.star和_model.star文件中，但也可以从stdout文件中提取。有关详细信息，请查看SPA教程高分辨率三维细化步骤。</p>
+
+<p>如果您提供了一个优化集文件作为输入，则程序还会写出另一个优化集中的run_optimisation_set.star文件，该文件用run_data.star、run_half&lt;1/2&gt;_class001_unfil.mrc文件和溶剂掩码文件更新（如果提供作为输入）。这个run_optimisation_set.star文件不应该与relion_refine经常使用的_optimister.star文件混淆。</p>
+
+<p>这项工作可能已经达到奈奎斯特频率，因此，为了获得更高的分辨率，我们将需要一组新的伪亚模式粒子和较小装仓因子（2或直接为1）的参考图。在此之前，由于我们在最初的3D细化中获得的细化图涵盖了HIV衣壳和基质，我们需要确保我们将在下一次细化中使用的掩模是对齐的，并且只关注衣壳。我们建议重新居中引用，因为掩码/文件夹中提供的掩码已经居中。您可以使用类似IMOD 3dmod的3D查看器查看输出的精细化贴图（Refine3D/job009/run_class001.mrc）和遮罩（mask/mask_align_bin4.mrc），以估计两个贴图之间的Z偏移（以像素为单位）。在我们的情况下，它是2.75像素，但这可能有所不同，因为它取决于初始的从头模型。因此，可以通过命令行对粒子进行重新居中：</p>
+
+<p><code class="highlighter-rouge">relion_star_handler --i Refine3D/job009/run_data.star \</code></p>
+
+<p><code class="highlighter-rouge">--o Refine3D/job009/run_data_z2.75.star --center --center_Z 2.75</code></p>
+
+<p>为了评估参考图中的衣壳是否与掩模对齐，我们可以使用Tomo重建粒子作业类型对其进行重建，如下一步重建粒子中所述。</p>
+
+<h3 id="426-重建粒子">4.2.6. 重建粒子</h3>
+
+<p>Job6</p>
+
+<p>从一组粒子获取 3D 参考图的常用方法是对给定方向提取的伪子断层图进行平均。然而，也可以通过对倾斜序列中每个粒子的 2D 投影进行平均来直接获得参考图。在这里，虽然在Tomo 重建粒子作业类型中我们提供了两种选项，但我们强烈建议从 2D 倾斜系列投影进行重建。这节省了插值步骤并防止与伪次断层图构造相关的伪影。它还创建两个半贴图以及参考贴图并节省计算时间。</p>
+
+<p>用户会发现的主要区别是：</p>
+
+<p>使用relion_tomo_reconstruct_article程序对 2D 倾斜系列进行平均，以便接受输入优化集文件。另一方面，从 3D 伪子断层选项使用常规relion_reconstruct程序，并需要显式提供输入粒子集文件名。</p>
+
+<p>如果选择 2D 倾斜系列的平均值，还可以估计同一作业中的 FSC 曲线。为此，应在平均值选项卡中提供 FSC 溶剂掩模。</p>
+
+<p>在本教程之后，我们将在初始 3D 细化后使用较小的分箱因子重建 3D 参考图，以继续细化以获得更高分辨率。</p>
+
+<p><img src="./Pastedimage20230823193853.png" alt="" /></p>
+
+<p>分析结果</p>
+
+<p>您可以使用 UCSF chimeraReconstructParticleTomo/job006/merged.mrc等 3D 查看器查看输出图。</p>
+
+<p><img src="./Pastedimage20230823193910.png" alt="" /></p>
+
+<h3 id="427-高分辨率-3d-细化">4.2.7. 高分辨率 3D 细化</h3>
+
+<p>一旦我们获得了高分箱因子（低分辨率）的细化地图，我们就可以继续将该数据集细化到更高分辨率。</p>
+
+<p>教程中的此时，可以使用原始像素大小（合并因子 1）直接处理 3D 细化。但是，建议通过减少分箱因子来顺序处理 3D 细化，以加快计算速度，因为我们不再需要为初始参考设置大值低通滤波器。该初始低通滤波器可防止地图中高频分量的偏差，并以高于初始分辨率的分辨率保持完全独立细化的黄金标准。为了克服这个问题，halfmap 文件可以用作relion_refine处理的每个半集的参考图，从而使两个半集的 3D 细化在整个工作流程中保持独立。为此，当参考图文件名包含以下任一内容时<em>half?</em>.mrc模板时，每个半贴图都会自动分配给它的半集。</p>
+
+<h4 id="4271-bin-2-处的伪次断层图">4.2.7.1. bin 2 处的伪次断层图</h4>
+
+<p>Job7</p>
+
+<p>在之前的重建粒子步骤中，我们展示了如何在装仓因子2下获得3D精细参考图和半图。现在，我们还需要在相同的装箱因子下构建伪子图文件。要执行此操作，请转到GUI上的Make pseudo-subtomos作业类型，然后在I/O选项卡上给出：</p>
+
+<p><img src="./Pastedimage20230823193932.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193939.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823193943.png" alt="" /></p>
+
+<p>Tip:</p>
+
+<p><strong>Initial low-pass filter (A):12 （我们将低通滤波器设置为略低于前一步中达到的分辨率。在这种情况下，它的奈奎斯特分辨率为装仓因子4。）</strong></p>
+
+<p>请注意，我们使用的是Tomo重构粒子输出优化集文件。因此，在构造伪子模式之后的输出优化集文件将包含具有相同装仓因子的粒子和参考。</p>
+
+<h4 id="4272-在-bin-2-处运行自动优化作业">4.2.7.2. 在 bin 2 处运行自动优化作业</h4>
+
+<p>Job8 ：</p>
+
+<p><img src="./Pastedimage20230823194000.png" alt="" /></p>
+
+<p><img src="./Pastedimage20230823194005.png" alt="" /></p>
+
+<h4 id="4273-bin-1-处的伪断层图和参考图">4.2.7.3. bin 1 处的伪断层图和参考图</h4>
+
+<p>Job9</p>
+
+<p>处理Makepseudo-subtomos和Tomo 重建粒子作业类型的顺序无关紧要，只要它们连续完成以在优化集文件中进行跟踪即可。对于分箱因子 1 的 3D 细化，请确保在“制作伪子断层 重建”选项卡和“断层重建粒子 平均”选项卡上正确设置以下选项：</p>
+
+<p><img src="./Pastedimage20230823194045.png" alt="" /></p>
+
+<p>Job 10 :</p>
+
+<p><img src="./Pastedimage20230823194050.png" alt="" /></p>
+
+<h4 id="4274-bin-1-运行自动优化作业">4.2.7.4. bin 1 运行自动优化作业</h4>
+
+<p>Job11</p>
+
+<p><img src="./Pastedimage20230823194112.png" alt="" /></p>
+
+<p>此后，使用紧密掩模掩模/mask_fsc.com运行后处理作业，您应该获得3.6Å左右的分辨率。此时，这是我们在不应用任何特定断层扫描细化的情况下可以达到的最佳对准，如tomo CTF细化和tomo帧对准部分所示。</p>
+
+<p>Job12</p>
+
+<p><img src="./Pastedimage20230823194118.png" alt="" /></p>
+
+                        
+                            <div class="share uk-text-center uk-margin-medium-top">
+    
+        <a class="uk-link-muted" href="https://twitter.com/intent/tweet?text=CryoET 的relion前处理&url=http://localhost:4000/docs/cryoET/&via=&related=" rel="nofollow" target="_blank" title="分享到 Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;"><span data-uk-icon="icon: twitter; ratio: 1.2"></span></a>
+    
+    
+        <a class="uk-link-muted uk-margin-small-left" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocs%2FcryoET%2F" rel="nofollow" target="_blank" title="分享到 Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><span data-uk-icon="icon: facebook; ratio: 1.2"></span></a>
+    
+</div>
+                        
+                    </div>
+
+                    
+
+                    <hr class="uk-margin-medium">
+
+                    <script src="https://giscus.app/client.js" data-repo="Q-M-D/cs-self-learning"
+                    data-repo-id="R_kgDOIjUjaA" data-category="General" data-category-id="DIC_kwDOIjUjaM4CYRJe"
+                    data-mapping="og:title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="bottom" data-theme="noborder_light" data-lang="zh-CN" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+
+                    
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="uk-margin-large-top paginate-post">
+        <div class="uk-child-width-expand@s uk-grid-large uk-pagi" data-uk-grid>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>GitHub 教程</h5>
+                    <div><a class="remove-underline hvr-back" href="/docs/github_tutorial/">&larr; 上一页</a></div>
+                
+            </div>
+            <div>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+                    <div class="uk-margin-large-top">
+    <h3>相关文档</h3>
+
+    
+    
+    
+
+    <ul class="uk-list link-secondary">
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    </ul>
+</div>
+
+
+                    
+
+                </article>
+
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class="uk-active"><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+
+    
+        
+    
+
+    
+
+    </body>
+
+</html>

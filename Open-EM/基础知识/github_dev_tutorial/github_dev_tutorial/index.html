@@ -1,0 +1,108 @@
+<ul id="markdown-toc">
+  <li><a href="#1-什么是github-dev" id="markdown-toc-1-什么是github-dev">1. 什么是GitHub dev</a></li>
+  <li><a href="#2-如何使用githubdev" id="markdown-toc-2-如何使用githubdev">2. 如何使用github.dev</a>    <ul>
+      <li><a href="#21-登录到自己的github账户并切换到组织账户" id="markdown-toc-21-登录到自己的github账户并切换到组织账户">2.1 登录到自己的GitHub账户，并切换到组织账户</a></li>
+      <li><a href="#22-进入组织项目open-em" id="markdown-toc-22-进入组织项目open-em">2.2 进入组织项目<code class="highlighter-rouge">Open-EM</code></a></li>
+      <li><a href="#23-创建并进入到自己的分支" id="markdown-toc-23-创建并进入到自己的分支">2.3 创建并进入到自己的分支</a>        <ul>
+          <li><a href="#231-创建分支" id="markdown-toc-231-创建分支">2.3.1 创建分支</a></li>
+          <li><a href="#232-进入分支" id="markdown-toc-232-进入分支">2.3.2 进入分支</a></li>
+        </ul>
+      </li>
+      <li><a href="#24-进入github-dev或者叫github-codespace" id="markdown-toc-24-进入github-dev或者叫github-codespace">2.4 进入GitHub dev（或者叫GitHub CodeSpace）</a></li>
+      <li><a href="#25-github-dev的运用" id="markdown-toc-25-github-dev的运用">2.5 GitHub dev的运用</a>        <ul>
+          <li><a href="#251-添加文档" id="markdown-toc-251-添加文档">2.5.1 添加文档</a></li>
+          <li><a href="#252-提交同步文档" id="markdown-toc-252-提交同步文档">2.5.2 提交同步文档</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-什么是github-dev">1. 什么是GitHub dev</h1>
+
+<p>github.dev 编辑器引入了完全在浏览器中运行的轻量级编辑体验。 使用 github.dev 编辑器，可以从 GitHub 中导航文件和源代码存储库，并创建和提交代码更改。 您可以在编辑器中打开任何存储库、复刻或拉取请求。</p>
+
+<p><strong>简单点说，就是可以直接在浏览器上编辑代码，不用再下载到本地了。并且可以直接跳过配置繁琐的<code class="highlighter-rouge">ssh key</code>，直接在线进行GitHub远端库的更新</strong></p>
+
+<p>关于github.dev的更多信息，请参阅<a href="https://docs.github.com/zh/codespaces/the-githubdev-web-based-editor">GitHub.dev</a>。</p>
+
+<h1 id="2-如何使用githubdev">2. 如何使用github.dev</h1>
+
+<p>本篇教程更加注重实际，故采用了一个简单的例子来进行讲解。此例子针对初到社区并且没有创建自己的分支的成员。如果已经创建过分支，可以直接跳到<code class="highlighter-rouge">2.4</code>。</p>
+
+<h2 id="21-登录到自己的github账户并切换到组织账户">2.1 登录到自己的GitHub账户，并切换到组织账户</h2>
+
+<p><img src="./github-dev-1.jpg" alt="登录账户，切换组织账户" /></p>
+
+<ol>
+  <li>登陆到GitHub账户后，点击左上角头像</li>
+  <li>点击<code class="highlighter-rouge">Cellverse</code>组织账户，进入组织账户页面</li>
+</ol>
+
+<p><img src="./github-dev-2.jpg" alt="查看组织" /></p>
+
+<p>点击<code class="highlighter-rouge">View organization</code>查看组织项目。</p>
+
+<h2 id="22-进入组织项目open-em">2.2 进入组织项目<code class="highlighter-rouge">Open-EM</code></h2>
+
+<p><img src="./github-dev-3.jpg" alt="进入`Open-EM`组织项目1" />
+<img src="./github-dev-4.jpg" alt="进入`Open-EM`组织项目2" /></p>
+
+<p>进入到组织详情页后，你将会看到如上图的页面，向下翻，找到<code class="highlighter-rouge">Open-EM</code>项目，点击进入。</p>
+
+<h2 id="23-创建并进入到自己的分支">2.3 创建并进入到自己的分支</h2>
+
+<h3 id="231-创建分支">2.3.1 创建分支</h3>
+<p><img src="./github-dev-5.jpg" alt="创建分支1" />
+<img src="./github-dev-6.jpg" alt="创建分支2" />
+<img src="./github-dev-7.jpg" alt="创建分支3" /></p>
+
+<p>如上图，按照顺序点击到第三张图片后，在<code class="highlighter-rouge">New branch name</code>中输入自己的分支名。（推荐以自己姓的全拼+名的首字母，例如<code class="highlighter-rouge">张三</code>可以将自己的分支名取为<code class="highlighter-rouge">zhangs</code>，<code class="highlighter-rouge">王麻子</code>可以取为<code class="highlighter-rouge">wangmz</code>），随后点击<code class="highlighter-rouge">Create new branch</code>即可。</p>
+
+<h3 id="232-进入分支">2.3.2 进入分支</h3>
+
+<p><img src="./github-dev-8.jpg" alt="进入分支1" />
+<img src="./github-dev-9.jpg" alt="进入分支2" /></p>
+
+<p>图一点击<code class="highlighter-rouge">code</code>返回项目主页，图二按照图示切换分支。<strong>注意</strong>，此处需要点击的分支是<code class="highlighter-rouge">2.3.2</code>步自己命名的<code class="highlighter-rouge">New branch name</code>。</p>
+
+<h2 id="24-进入github-dev或者叫github-codespace">2.4 进入GitHub dev（或者叫GitHub CodeSpace）</h2>
+
+<p><img src="./github-dev-10.jpg" alt="GitHub dev1" />
+如图，按顺序点击即可。</p>
+
+<h2 id="25-github-dev的运用">2.5 GitHub dev的运用</h2>
+
+<p>在此处基本和在本地用<code class="highlighter-rouge">vscode</code>对一个文档操作无异。下面演示一个在<code class="highlighter-rouge">doc</code>文件夹下添加一个名为<code class="highlighter-rouge">test.md</code>的文档并更新到GitHub库中的示例。</p>
+
+<h3 id="251-添加文档">2.5.1 添加文档</h3>
+
+<p><img src="./github-dev-11.jpg" alt="GitHub dev1" /></p>
+
+<ol>
+  <li>点击<code class="highlighter-rouge">doc</code>文件夹</li>
+  <li>点击添加文件的按钮</li>
+  <li>输入<code class="highlighter-rouge">test.md</code>文件名</li>
+</ol>
+
+<p><img src="./github-dev-12.jpg" alt="GitHub dev1" /></p>
+
+<p>打开<code class="highlighter-rouge">test.md</code>文档后修改文档内容，此处可以选在在线编辑，也可以将在本地更改好的文件复制粘贴到该处。</p>
+
+<h3 id="252-提交同步文档">2.5.2 提交同步文档</h3>
+
+<p><img src="./github-dev-13.jpg" alt="提交文档1" /></p>
+
+<ol>
+  <li>点击切换到更改管理</li>
+  <li>添加所有的更改到暂存区</li>
+  <li>为本次的修改命名。（例如本次我们添加了一个名为<code class="highlighter-rouge">test.md</code>的文档，我们可以将此次的修改命名为<code class="highlighter-rouge">add test.md</code>）</li>
+</ol>
+
+<p><img src="./github-dev-14.jpg" alt="提交文档2" /></p>
+
+<p>按照图示提交本次修改，修改将同步到你创建的GitHub分支上。</p>
+
+<p><img src="./github-dev-15.jpg" alt="提交文档3" /></p>
+
+<p>如果出现此警告，直接点击<code class="highlighter-rouge">Yes</code>即可。</p>

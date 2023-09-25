@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Markdown 教程 | Cellverse</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="Markdown 教程" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/docs/markdown_tutorial/" />
+<meta property="og:url" content="http://localhost:4000/docs/markdown_tutorial/" />
+<meta property="og:site_name" content="Cellverse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-25T18:05:01+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"dateModified":"2023-09-25T18:05:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docs/markdown_tutorial/"},"datePublished":"2023-09-25T18:05:01+08:00","url":"http://localhost:4000/docs/markdown_tutorial/","description":"OPEN-EN.","headline":"Markdown 教程","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li class="uk-active"><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-grid-large" data-uk-grid>
+
+            <div class="sidebar-fixed-width uk-visible@m">
+                <div class="sidebar-docs uk-position-fixed uk-margin-top">
+                    
+                    <h5>基础知识</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class="uk-active"><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+                    
+                    </ul>
+                    
+                    <h5>数据处理案例</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+                    
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="uk-width-1-1 uk-width-expand@m">
+
+                <article class="uk-article">
+
+                    <h1 class="uk-article-title">Markdown 教程</h1>
+
+                    
+
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        
+
+
+
+<div>
+  
+  <time datetime="2023-09-25T18:05:01+08:00" itemprop="datePublished">
+    
+    Sep 25, 2023
+  </time>
+</div>
+                    </div>
+
+                    <div class="article-content link-primary">
+                        <ul id="markdown-toc">
+  <li><a href="#1-什么是-markdown" id="markdown-toc-1-什么是-markdown">1 什么是 Markdown</a></li>
+  <li><a href="#2-markdown-基本语法" id="markdown-toc-2-markdown-基本语法">2 Markdown 基本语法</a>    <ul>
+      <li><a href="#标题" id="markdown-toc-标题">标题</a></li>
+      <li><a href="#文字样式" id="markdown-toc-文字样式">文字样式</a></li>
+      <li><a href="#列表" id="markdown-toc-列表">列表</a>        <ul>
+          <li><a href="#有序列表" id="markdown-toc-有序列表">有序列表</a></li>
+          <li><a href="#无序列表" id="markdown-toc-无序列表">无序列表</a></li>
+          <li><a href="#在列表中嵌套其他元素" id="markdown-toc-在列表中嵌套其他元素">在列表中嵌套其他元素</a></li>
+        </ul>
+      </li>
+      <li><a href="#代码" id="markdown-toc-代码">代码</a></li>
+      <li><a href="#块引用" id="markdown-toc-块引用">块引用</a></li>
+      <li><a href="#超链接" id="markdown-toc-超链接">超链接</a></li>
+      <li><a href="#图片" id="markdown-toc-图片">图片</a></li>
+      <li><a href="#分隔线" id="markdown-toc-分隔线">分隔线</a></li>
+      <li><a href="#转义字符" id="markdown-toc-转义字符">转义字符</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-markdown-拓展语法" id="markdown-toc-3-markdown-拓展语法">3 Markdown 拓展语法</a>    <ul>
+      <li><a href="#表格" id="markdown-toc-表格">表格</a></li>
+      <li><a href="#任务列表" id="markdown-toc-任务列表">任务列表</a></li>
+      <li><a href="#脚注" id="markdown-toc-脚注">脚注</a></li>
+      <li><a href="#emoji" id="markdown-toc-emoji">Emoji</a></li>
+      <li><a href="#数学公式" id="markdown-toc-数学公式">数学公式</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-markdown-文档示例" id="markdown-toc-4-markdown-文档示例">4 Markdown 文档示例</a></li>
+</ul>
+
+<h1 id="1-什么是-markdown">1 什么是 Markdown</h1>
+
+<p>Markdown 是一种轻量级标记语言，常以 <code class="highlighter-rouge">.md</code> 为文件后缀，旨在简化编辑文本的过程。传统上，人们使用超文本标记语言（HTML）来格式化网页上的文本，但是 HTML 语言的语法繁琐，不适合写作者快速阅读和编辑。相比传统的文本编写工具如 Word、Latex 等，Markdown 在纯文本文档中加入简单的排版元素，让写作者更专注于内容本身，而不必费心于繁琐的排版。</p>
+
+<p>Markdown 的特点与优势在于：</p>
+
+<ol>
+  <li>Markdown 文本无需依赖复杂的界面，可以在任何文本编辑器中创建和编辑。</li>
+  <li>Markdown 文本支持与 HTML 语言混编，从而实现更复杂的排版效果。</li>
+  <li>Markdown 文本可以很容易地转换成其他格式，如 HTML、PDF、LaTeX 等，这使得内容可以在不同的平台和设备上展示。</li>
+  <li>Markdown 的纯文本属性天然支持跨平台并且兼容版本控制系统，使得团队协作和文档管理更加方便。</li>
+</ol>
+
+<p>这使得 Markdown 非常适合快速创建博客文章、技术文档、笔记以及在线交流等各种场景。因此，许多写作者、开发者和博客作者都选择 Markdown 作为他们的首选工具。我们的 Open-EM 开源项目也自然而然选取 Markdown 格式作为我们开源文档的格式，并且会自动定期同步所有内容到项目 Web 主页来提供更好的阅读体验。</p>
+
+<p>这里我们推荐你使用 <a href="https://obsidian.md/">Obsidian</a> 作为你的 Markdown 编辑器，它是免费、跨平台、插件化的 Markdown 编辑器，功能非常丰富。此外，以下是一些主流的 Markdown 编辑器</p>
+
+<ul>
+  <li><a href="https://typora.io/">Typora</a>，收费、轻型、跨平台的 Markdown 编辑器，支持自定义主题。</li>
+  <li>VSCode 中的 Markdown All in One 插件，提供了基本的 Markdown 语法高亮和预览功能。</li>
+  <li>GitHub、Notion、Wikipedia 等平台均内嵌 Markdown 编辑器。</li>
+</ul>
+
+<h1 id="2-markdown-基本语法">2 Markdown 基本语法</h1>
+
+<p>以下我们介绍 Markdown 的基本语法，分别为：</p>
+
+<ol>
+  <li><a href="#标题">标题</a></li>
+  <li><a href="#文字样式">文字样式</a></li>
+  <li><a href="#列表">列表</a></li>
+  <li><a href="#代码">代码</a></li>
+  <li><a href="#块引用">块引用</a></li>
+  <li><a href="#超链接">超链接</a></li>
+  <li><a href="#图片">图片</a></li>
+  <li><a href="#分割线">分割线</a></li>
+  <li><a href="#转义字符">转义字符</a></li>
+</ol>
+
+<h2 id="标题">标题</h2>
+
+<p>Markdown 提供了不同级别的标题来表示内容的层次结构。请在行首添加井号 <code class="highlighter-rouge">#</code> 来表示标题级别，井号 <code class="highlighter-rouge">#</code> 的数量决定了标题的级别。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge"># 一级标题</code></td>
+      <td style="text-align: center">&lt;h1&gt;一级标题&lt;/h1&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">## 二级标题</code></td>
+      <td style="text-align: center">&lt;h2&gt;二级标题&lt;/h2&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">### 三级标题</code></td>
+      <td style="text-align: center">&lt;h3&gt;三级标题&lt;/h3&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">#### 四级标题</code></td>
+      <td style="text-align: center">&lt;h4&gt;四级标题&lt;/h4&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">##### 五级标题</code></td>
+      <td style="text-align: center">&lt;h5&gt;五级标题&lt;/h5&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">###### 六级标题</code></td>
+      <td style="text-align: center">&lt;h6&gt;六级标题&lt;/h6&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>:heavy_exclamation_mark: 请在井号 <code class="highlighter-rouge">#</code> 和标题之间添加一个空格作为分隔。</p>
+
+<h2 id="文字样式">文字样式</h2>
+
+<p>Markdown 提供了一些文字样式用于强调文本。请在文本的两侧使用相应的符号。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">**粗体文本**</code></td>
+      <td style="text-align: center"><strong>粗体文本</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">*斜体文本*</code></td>
+      <td style="text-align: center"><em>斜体文本</em></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">~~删除线文本~~</code></td>
+      <td style="text-align: center"><del>删除线文本</del></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">***粗斜体文本***</code></td>
+      <td style="text-align: center"><strong><em>粗斜体文本</em></strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">&lt;u&gt;下划线文本&lt;/u&gt;</code></td>
+      <td style="text-align: center"><u>下划线文本</u></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>:heavy_exclamation_mark: 星号 <code class="highlighter-rouge">*</code> 也可以替换为下划线 <code class="highlighter-rouge">_</code>，但推荐使用星号 <code class="highlighter-rouge">*</code>。</p>
+
+<h2 id="列表">列表</h2>
+
+<p>Markdown 提供了有序列表和无序列表两种列表类型。</p>
+
+<h3 id="有序列表">有序列表</h3>
+
+<p>对于有序列表，请在每个列表项前添加数字并紧跟一个英文句点。数字不必按数学顺序排列，但是列表应当从数字 1 起始。</p>
+
+<ol>
+  <li>第一项</li>
+  <li>第二项
+    <ol>
+      <li>第二项的第一项</li>
+      <li>第二项的第二项</li>
+      <li>第二项的第三项</li>
+    </ol>
+  </li>
+  <li>第三项</li>
+</ol>
+
+<h3 id="无序列表">无序列表</h3>
+
+<p>对于无序列表，请在每个列表项前面添加破折号 <code class="highlighter-rouge">-</code>、星号 <code class="highlighter-rouge">*</code> 或加号 <code class="highlighter-rouge">+</code>。</p>
+
+<ul>
+  <li>第一项</li>
+  <li>第二项
+    <ul>
+      <li>第二项的第一项</li>
+      <li>第二项的第二项</li>
+      <li>第二项的第三项</li>
+    </ul>
+  </li>
+  <li>第三项
+    <ul>
+      <li>第三项的第一项</li>
+      <li>第三项的第二项</li>
+      <li>第三项的第三项</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="在列表中嵌套其他元素">在列表中嵌套其他元素</h3>
+
+<p>要在保留列表连续性的同时在列表中添加另一种元素，请将该元素缩进四个空格或一个制表符（tab）。</p>
+
+<ul>
+  <li>
+    <p>列表中表示多行文本：</p>
+
+    <p>多行文本</p>
+  </li>
+  <li>
+    <p>列表中表示块引用</p>
+
+    <blockquote>
+      <p>块引用</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>等等……</p>
+  </li>
+</ul>
+
+<p>:heavy_exclamation_mark: 请在符号和内容之间添加一个空格作为分隔。</p>
+
+<h2 id="代码">代码</h2>
+
+<p>Markdown 提供了行内代码和行间代码块。请在文本的两侧使用反引号 <code>`</code> 来表示行内代码。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code>\`行内代码\`</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">行内代码</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>对于行间代码，请用在代码块之前和之后的行上使用三个反引号 <code>\`\`\`</code> 或三个波浪号 <code>~~~</code>。主流的 Markdown 编辑器都支持行间代码的语法高亮，请在第一个三个反引号 <code>\`\`\`</code> 后面指定编程语言。</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="s">"""Markdown tutorial"""</span>
+    <span class="k">return</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+</code></pre>
+</div>
+
+<h2 id="块引用">块引用</h2>
+
+<p>Markdown 提供了块引用表示引用的文本。请在行首添加一个 <code class="highlighter-rouge">&gt;</code> 符号。</p>
+
+<p>块引用可以包含多个段落，也可以包含其他 Markdown 元素：</p>
+
+<blockquote>
+  <p>第一行</p>
+
+  <p>第二行</p>
+
+  <blockquote>
+    <p>块引用可以包含其他 Markdown 元素，包括块引用。</p>
+
+    <p>请注意嵌套的块引用符号 <code class="highlighter-rouge">&gt;</code> 的对齐。</p>
+  </blockquote>
+</blockquote>
+
+<h2 id="超链接">超链接</h2>
+
+<p>Markdown 提供了三种基本的表示超链接的语法。不同的 Markdown 应用程序处理 URL 中间的空格方式不一样，请尽量使用 <code class="highlighter-rouge">%20</code> 代替链接中的空格。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">[超链接显示名](超链接地址)</code></td>
+      <td style="text-align: center"><a href="超链接地址">超链接显示名</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">[超链接显示名](超链接地址 "超链接预览名")</code></td>
+      <td style="text-align: center"><a href="超链接地址" title="超链接预览名">超链接显示名</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">&lt;https://www.open-em.cn&gt;</code></td>
+      <td style="text-align: center"><a href="https://www.open-em.cn">https://www.open-em.cn</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>预览名是当鼠标悬停在超链接上时显现的文字。</p>
+
+<p>超链接也可以携带文字样式。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">[**超链接显示名**](超链接地址)</code></td>
+      <td style="text-align: center"><a href="超链接地址"><strong>超链接显示名</strong></a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">**[超链接显示名](超链接地址)**</code></td>
+      <td style="text-align: center"><strong><a href="超链接地址">超链接显示名</a></strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">[`超链接显示名`](超链接地址)</code></td>
+      <td style="text-align: center"><a href="超链接地址"><code class="highlighter-rouge">超链接显示名</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>:heavy_exclamation_mark: 主流的 Markdown 编辑器都会自动将 URL 转换为超链接，即可以忽略尖括号 <code class="highlighter-rouge">&lt;&gt;</code>。如果不希望这样，请在 URL 两侧添加反引号 <code>`</code>。</p>
+
+<h2 id="图片">图片</h2>
+
+<p>Markdown 提供了插入图片的语法。类似于超链接的语法，在链接前添加一个感叹号 <code class="highlighter-rouge">!</code> 即可：。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">![图片显示名](图片地址 "图片预览名")</code></td>
+      <td style="text-align: center"><a href="md.png"><img src="md.png" alt="Markdown" title="Markdown Tutorial" /></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="分隔线">分隔线</h2>
+
+<p>Markdown 提供了分隔线分隔文本逻辑。请在单独一行上使用三个或多个星号 <code class="highlighter-rouge">***</code>、破折号 <code class="highlighter-rouge">---</code> 或下划线 <code class="highlighter-rouge">___</code>，并且不能包含其他内容。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">预览效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">---</code></td>
+      <td style="text-align: center">&lt;hr&gt;&lt;/hr&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">***</code></td>
+      <td style="text-align: center">&lt;hr&gt;&lt;/hr&gt;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">___</code></td>
+      <td style="text-align: center">&lt;hr&gt;&lt;/hr&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="转义字符">转义字符</h2>
+
+<p>部分字符已经在 Markdown 语法中充当特殊字符，因此想表达这些字符原本的含义时，请在前面添加反斜杠号 <code class="highlighter-rouge">\</code>。转义字符包括</p>
+
+<p>\ * - _ ` []  {} () # + . ! | $</p>
+
+<h1 id="3-markdown-拓展语法">3 Markdown 拓展语法</h1>
+
+<p>Markdown 的基本语法并不足够应对基本的文本写作，因此又拓展出如下的语法：</p>
+
+<ol>
+  <li><a href="#表格">表格</a></li>
+  <li><a href="#任务列表">任务列表</a></li>
+  <li><a href="#脚注">脚注</a></li>
+  <li><a href="#Emoji">Emoji</a></li>
+  <li><a href="#数学公式">数学公式</a></li>
+</ol>
+
+<p>它们被主流的 Markdown 编辑器所支持。</p>
+
+<h2 id="表格">表格</h2>
+
+<p>Markdown 提供了简单的表格的表示方法。请使用三个或多个连字符 <code class="highlighter-rouge">---</code> 创建每列的标题，并使用管道 <code class="highlighter-rouge">|</code> 分隔每列。</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>| Title 1 | Title 2 |
+|---------|---------|
+|  Text 1 |  Text 2 |
+</code></pre>
+</div>
+
+<p>此外，你还可以修改连字符 <code class="highlighter-rouge">---</code> 以修改表格每列的对齐方式。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">:---</code></td>
+      <td style="text-align: center">左对齐</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">:---:</code></td>
+      <td style="text-align: center">居中</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">---:</code></td>
+      <td style="text-align: center">右对齐</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="任务列表">任务列表</h2>
+
+<p>Markdown 提供了特殊的复选框，它们的行为类似于无序列表，他们可以方便的被用于TODO List的记录。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">- [ ] 未完成的任务</code></td>
+      <td style="text-align: center">- [ ] 未完成的任务</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">- [x] 已完成的任务</code></td>
+      <td style="text-align: center">- [x] 已完成的任务</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="脚注">脚注</h2>
+
+<p>Markdown 提供了脚注。请在方括号 <code class="highlighter-rouge">[]</code> 内添加插入 <code class="highlighter-rouge">^</code> 和标识符，标识符可以是数字或单词，但不能包含空白字符。样例<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>。</p>
+
+<h2 id="emoji">Emoji</h2>
+
+<p>Markdown 支持在文本中插入 Emoji 以丰富文本。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Markdown 语法</th>
+      <th style="text-align: center">效果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">:white_check_mark:</code></td>
+      <td style="text-align: center">:white_check_mark:</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">:x:</code></td>
+      <td style="text-align: center">:x:</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="数学公式">数学公式</h2>
+
+<p>主流的 Markdown 编辑器大多支持 Latex 语法的行内公式和行间公式块。类似于代码块，请在文本的两侧使用金钱符号 <code>\$</code> 来表示行内公式：$\hat{f}(\xi)=\int_{-\infty}^{+\infty}f(x)\mathrm{e}^{2\pi ix\xi}\mathrm{d}x$。</p>
+
+<p>对于行间公式，请用在公式块之前和之后的行上使用两个金钱符号 <code>\$</code>：
+<script type="math/tex">\hat{f}(\xi)=\int_{-\infty}^{+\infty}f(x)\mathrm{e}^{2\pi ix\xi}\mathrm{d}x</script></p>
+
+<p>有关 Latex 公式，请参考：<a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">LaTeX/Mathematics</a>。</p>
+
+<p>在线 Latex 公式编辑器：<a href="https://latex.codecogs.com/eqneditor/editor.php">Latex Codecogs</a>。</p>
+
+<h1 id="4-markdown-文档示例">4 Markdown 文档示例</h1>
+
+<ul>
+  <li>
+    <p><a href="https://github.github.com/gfm/">GitHub 偏好的 Markdown 格式</a>。</p>
+  </li>
+  <li>
+    <p>以下我们列出了一些用 Markdown 编写的优秀开源项目的文档以供参考：</p>
+    <ol>
+      <li><a href="https://github.com/microsoft/vscode/wiki">VSCode</a>，VSCode。</li>
+      <li><a href="https://github.com/ManimCommunity/manim/wiki">Manim</a>，开源 Python 动画引擎。</li>
+      <li><a href="https://github.com/pytorch/pytorch/wiki">PyTorch</a>，开源深度学习框架。</li>
+      <li><a href="https://github.com/ohmyzsh/ohmyzsh/wiki">Oh-My-Zsh</a>，开源虚拟终端。</li>
+      <li><a href="https://github.com/golang/go/wiki">Go</a>，Go 语言文档。</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>脚注样例。 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+                        
+                            <div class="share uk-text-center uk-margin-medium-top">
+    
+        <a class="uk-link-muted" href="https://twitter.com/intent/tweet?text=Markdown 教程&url=http://localhost:4000/docs/markdown_tutorial/&via=&related=" rel="nofollow" target="_blank" title="分享到 Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;"><span data-uk-icon="icon: twitter; ratio: 1.2"></span></a>
+    
+    
+        <a class="uk-link-muted uk-margin-small-left" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocs%2Fmarkdown_tutorial%2F" rel="nofollow" target="_blank" title="分享到 Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><span data-uk-icon="icon: facebook; ratio: 1.2"></span></a>
+    
+</div>
+                        
+                    </div>
+
+                    
+
+                    <hr class="uk-margin-medium">
+
+                    <script src="https://giscus.app/client.js" data-repo="Q-M-D/cs-self-learning"
+                    data-repo-id="R_kgDOIjUjaA" data-category="General" data-category-id="DIC_kwDOIjUjaM4CYRJe"
+                    data-mapping="og:title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="bottom" data-theme="noborder_light" data-lang="zh-CN" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+
+                    
+
+
+  
+  
+    <div class="uk-margin-large-top paginate-post">
+        <div class="uk-child-width-expand@s uk-grid-large uk-pagi" data-uk-grid>
+            <div>
+                
+                
+            </div>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>GitHub 在线编辑器教程</h5>
+                    <div class="uk-text-right"><a class="remove-underline hvr-forward" href="/docs/github_dev_tutorial/">下一页 &rarr;</a></div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+                    <div class="uk-margin-large-top">
+    <h3>相关文档</h3>
+
+    
+    
+    
+
+    <ul class="uk-list link-secondary">
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    </ul>
+</div>
+
+
+                    
+
+                </article>
+
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class="uk-active"><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li class="uk-active"><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+
+    
+        
+    
+
+    
+
+    </body>
+
+</html>

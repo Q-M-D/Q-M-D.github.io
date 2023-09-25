@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Relion_subtomo_averaging_code_review | Cellverse</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="Relion_subtomo_averaging_code_review" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/docs/relion_subtomo_averaging_code_review/relion_subtomo_averaging_code_review/" />
+<meta property="og:url" content="http://localhost:4000/docs/relion_subtomo_averaging_code_review/relion_subtomo_averaging_code_review/" />
+<meta property="og:site_name" content="Cellverse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-25T18:05:01+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"dateModified":"2023-09-25T18:05:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docs/relion_subtomo_averaging_code_review/relion_subtomo_averaging_code_review/"},"datePublished":"2023-09-25T18:05:01+08:00","url":"http://localhost:4000/docs/relion_subtomo_averaging_code_review/relion_subtomo_averaging_code_review/","description":"OPEN-EN.","headline":"Relion_subtomo_averaging_code_review","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-grid-large" data-uk-grid>
+
+            <div class="sidebar-fixed-width uk-visible@m">
+                <div class="sidebar-docs uk-position-fixed uk-margin-top">
+                    
+                    <h5>基础知识</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+                    
+                    </ul>
+                    
+                    <h5>数据处理案例</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+                    
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="uk-width-1-1 uk-width-expand@m">
+
+                <article class="uk-article">
+
+                    <h1 class="uk-article-title">Relion_subtomo_averaging_code_review</h1>
+
+                    
+
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        
+
+
+
+<div>
+  
+  <time datetime="2023-09-25T18:05:01+08:00" itemprop="datePublished">
+    
+    Sep 25, 2023
+  </time>
+</div>
+                    </div>
+
+                    <div class="article-content link-primary">
+                        <ul id="markdown-toc">
+  <li><a href="#relion-subtomo的基本流程" id="markdown-toc-relion-subtomo的基本流程">relion subtomo的基本流程</a></li>
+  <li><a href="#main-step-1数据输入import-tomograms-and-import-coordinates" id="markdown-toc-main-step-1数据输入import-tomograms-and-import-coordinates">Main Step 1：数据输入（import tomograms and import coordinates）</a></li>
+  <li><a href="#main-step-2make-pseudo-subtomograms" id="markdown-toc-main-step-2make-pseudo-subtomograms">Main step 2：Make pseudo-subtomograms</a></li>
+</ul>
+
+<p>Cryo-ET subtomo averaging是冷冻电镜解出高分辨率生物结构的重要过程，本文是对relion subtomo部分主要程序功能的代码阅读，对relion的解读以及部分数据示例主要来自源码阅读以及<a href="https://relion.readthedocs.io/en/release-4.0/STA_tutorial/index.html">relion教程</a>。</p>
+
+<h1 id="relion-subtomo的基本流程">relion subtomo的基本流程</h1>
+<ol>
+  <li>数据输入：
+    <ul>
+      <li>现有软件（如<a href="https://bio3d.colorado.edu/imod/">IMOD</a>、<a href="http://www.warpem.com/warp/?page_id=65">Warp</a>等）做好的ET bin1数据（tilt series）与align参数</li>
+      <li>现有软件（如<a href="https://grigoriefflab.umassmed.edu/ctffind4">CTFFIND</a>等）估计的ctf参数</li>
+      <li>现有软件（如<a href="https://wiki.dynamo.biozentrum.unibas.ch/w/index.php/Main_Page">dynamo</a>等）解出的particles 3D位置与对应欧拉角</li>
+    </ul>
+  </li>
+  <li>Make pseudo-subtomograms：根据每个particle位置使用FBP重建出每个particle的3D volume。第一步先以bin4分辨率重建。</li>
+  <li>De novo 3D model generation：随机挑选bin4的particle volume average出一个初始的initial model。</li>
+  <li>Initial 3D refinement：以上一步的model为reference，计算FSC并使用SGD优化每一个particle的坐标与欧拉角直到收敛。</li>
+  <li>Reconstruct particle：使用优化好的particle的所有2D crop image，使用FBP重建出bin2分辨率的reference map。与第2步不同的是，这一步不是每个particle单独重建自己的volume，而是所有particle一起重建一个reference map。</li>
+  <li>重复第2步，用第4步的优化结果以bin2分辨率重建每个particle。</li>
+  <li>3D auto refine：以第五步结果为reference map，优化bin2 particle。</li>
+  <li>重复5、6、7步，在bin1分辨率上重建与优化，得到最终高分辨率reference map。</li>
+</ol>
+
+<p>接下来会详细介绍上述的具体步骤，每个步骤可大致分为数据输入、数据输出以及代码解析三部分，代码解析中会有用中文写的注释进行说明。<br />
+注：由于3D initial model与refine部分的内容非常重要，需要进一步的阅读与考证，因此本文的解析只限于前两个步骤，之后会持续更新。</p>
+<h1 id="main-step-1数据输入import-tomograms-and-import-coordinates">Main Step 1：数据输入（import tomograms and import coordinates）</h1>
+<p>在这一步，relion会把ET tomogram与对应particle信息全部输入进来，对于tomogram，需要原始tilt series、align参数文件（imod）、ctf参数（ctffind或ctfplotter）；对于particles，需要每个particle的3D坐标与欧拉旋转角。<br />
+源码位置：<code class="highlighter-rouge">source/jaz/tomography/apps/import_tomograms.cpp</code>
+<code class="highlighter-rouge">source/jaz/tomography/apps/import_particles.cpp</code></p>
+<ul>
+  <li>Import Tomograms：输入tilt series与对应信息，.star文件如下。
+    <div class="highlighter-rouge"><pre class="highlight"><code>  data_
+
+  loop_
+  _rlnTomoName
+  _rlnTomoTiltSeriesName
+  _rlnTomoImportCtfFindFile
+  _rlnTomoImportImodDir
+  _rlnTomoImportFractionalDose
+  _rlnTomoImportOrderList
+
+  TS_01    tomograms/TS_01/01.mrc  tomograms/TS_01/01_output.txt    tomograms/TS_01    3.0    input/order_list.csv 
+  TS_03    tomograms/TS_03/03.mrc  tomograms/TS_03/03_output.txt    tomograms/TS_03    3.0    input/order_list.csv 
+  TS_43    tomograms/TS_43/43.mrc  tomograms/TS_43/43_output.txt    tomograms/TS_43    3.1    input/order_list.csv 
+  TS_45    tomograms/TS_45/45.mrc  tomograms/TS_45/45_output.txt    tomograms/TS_45    3.1    input/order_list.csv 
+  TS_54    tomograms/TS_54/54.mrc  tomograms/TS_54/54_output.txt    tomograms/TS_54    3.0    input/order_list.csv 
+</code></pre>
+    </div>
+    <p>几乎所有relion的输入都可以被描述成.star文件。</p>
+    <ul>
+      <li><strong>rlnTomoName</strong>: tomogram的名字</li>
+      <li><strong>rlnTomoTiltSeriesName</strong>: tomogram raw stack mrc路径</li>
+      <li><strong>rlnTomoImportCtfFindFile</strong>: 对应的ctf参数文件（如果是ctfplotter的结果就是<strong>rlnTomoImportCtfPlotterFile</strong>）</li>
+      <li><strong>rlnTomoImportImodDir</strong>: tomogram对应IMOD文件夹路径（用来获得align参数）</li>
+      <li><strong>rlnTomoImportFractionalDose</strong>: 数据拍摄用的电子剂量</li>
+      <li><strong>rlnTomoImportOrderList</strong>: 标注数据拍摄顺序，表格里每行有两个数（i，j），意味着第i个被拍的角度是j。</li>
+    </ul>
+  </li>
+  <li>Import coordinates：输入particle坐标、欧拉角与对应的tomograms名字。
+    <div class="highlighter-rouge"><pre class="highlight"><code>  data_particles
+
+  loop_
+  _rlnTomoName #1
+  _rlnTomoParticleId #2
+  _rlnTomoManifoldIndex #3
+  _rlnCoordinateX #4
+  _rlnCoordinateY #5
+  _rlnCoordinateZ #6
+  _rlnOriginXAngst #7
+  _rlnOriginYAngst #8
+  _rlnOriginZAngst #9
+  _rlnAngleRot #10
+  _rlnAngleTilt #11
+  _rlnAnglePsi #12
+  _rlnClassNumber #13
+  _rlnRandomSubset #14
+  TS_01	1	1	644	1164	72	-0.000	-0.000	-0.000	-8.72	167.29	87.57	-1	2
+  TS_01	2	1	624	1112	64	-0.000	-0.000	-0.000	-130.65	175.35	84.29	-1	1
+  TS_01	3	1	676	1120	68	-0.000	-0.000	-0.000	-117.88	170.53	95.89	-1	2
+  TS_01	4	1	696	1168	84	-0.000	-0.000	-0.000	53.64	158.62	86.53	-1	1
+  TS_01	5	1	592	1156	72	-0.000	-0.000	-0.000	-78.74	169.66	78.39	-1	2
+  TS_01	6	1	659	1071	67	0.026	-0.088	0.012	54.34	178.38	-31.41	1	1
+  TS_01	7	1	712	1076	64	-0.000	-0.000	-0.000	61.58	177.85	156.65	-1	2
+  TS_01	8	1	660	1200	100	-0.000	-0.000	-0.000	106.21	148.26	74.99	-1	1
+  ...
+</code></pre>
+    </div>
+    <p>数据里的3D坐标应该与IMOD文件夹内<code class="highlighter-rouge">tilt.com</code>文件对应。</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>  $tilt -StandardInput
+  InputProjections 01_dose-filt.ali
+  OutputFile 01_dose-filt_full.rec
+  IMAGEBINNED 1
+  TILTFILE 01_dose-filt.tlt
+  THICKNESS 1360
+  RADIAL 0.35 0.05
+  XAXISTILT 0.0
+  LOG 0.0
+  SCALE 0.0 330.0
+  PERPENDICULAR 
+  MODE 2
+  FULLIMAGE 3710 3710
+  SUBSETSTART 0 1825
+  AdjustOrigin 
+  ActionIfGPUFails 1,2
+  XTILTFILE 01_dose-filt.xtilt
+  OFFSET 0.0
+  SHIFT 0.0 300.0
+  UseGPU 0
+  $if (-e ./savework) ./savework
+</code></pre>
+    </div>
+    <p><code class="highlighter-rouge">THICHNESS</code>与<code class="highlighter-rouge">FULLIMAGE</code>就是3D volume的维度。</p>
+  </li>
+</ul>
+
+<h1 id="main-step-2make-pseudo-subtomograms">Main step 2：Make pseudo-subtomograms</h1>
+<p>数据输入后，relion通过particle坐标投影回2D图片进行FBP重建。<br />
+源码位置: <code class="highlighter-rouge">source/jaz/tomography/programs/subtomo.cpp</code></p>
+<ul>
+  <li>数据输入：
+    <ul>
+      <li>tomograms.star:</li>
+    </ul>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  data_global
+
+  loop_ 
+  _rlnTomoName #1 
+  _rlnTomoTiltSeriesName #2 
+  _rlnTomoFrameCount #3 
+  _rlnTomoSizeX #4 
+  _rlnTomoSizeY #5 
+  _rlnTomoSizeZ #6 
+  _rlnTomoHand #7 
+  _rlnOpticsGroupName #8 
+  _rlnTomoTiltSeriesPixelSize #9 
+  _rlnVoltage #10 
+  _rlnSphericalAberration #11 
+  _rlnAmplitudeContrast #12 
+  _rlnTomoImportFractionalDose #13 
+      TS_01 tomograms/TS_01/01.mrc           40         3710         3710         1360     -1.00000 opticsGroup1     1.350000   300.000000     2.700000     0.070000     3.000000 
+      TS_03 tomograms/TS_03/03.mrc           40         3710         3710         1120     -1.00000 opticsGroup1     1.350000   300.000000     2.700000     0.070000     3.000000 
+      TS_43 tomograms/TS_43/43.mrc           41         3710         3710         1200     -1.00000 opticsGroup1     1.350000   300.000000     2.700000     0.070000     3.100000 
+      TS_45 tomograms/TS_45/45.mrc           41         3710         3710         1200     -1.00000 opticsGroup1     1.350000   300.000000     2.700000     0.070000     3.100000 
+      TS_54 tomograms/TS_54/54.mrc           41         3710         3710         1200     -1.00000 opticsGroup1     1.350000   300.000000     2.700000     0.070000     3.000000
+
+  # version 30001
+
+  data_TS_01
+
+  loop_ 
+  _rlnTomoProjX #1 
+  _rlnTomoProjY #2 
+  _rlnTomoProjZ #3 
+  _rlnTomoProjW #4 
+  _rlnDefocusU #5 
+  _rlnDefocusV #6 
+  _rlnDefocusAngle #7 
+  _rlnCtfScalefactor #8 
+  _rlnMicrographPreExposure #9 
+  [0.0446311671183,-0.996636282201,-0.0687259705396,3671.47512481] [0.542807022999,0.0819463245359,-0.835849516828,1134.92684561] [0.838670567945,0,0.544639035015,-1762.57143309]  [0,0,0,1] 36642.020000 36513.230000    -21.44723     1.000000   114.000000 
+  [0.0481668410418,-0.996636282201,-0.0662959691761,3652.3982384] [0.585808108577,0.0819463245359,-0.806295689511,1032.33863359] [0.809016994375,0,0.587785252292,-1723.90164368]  [0,0,0,1] 40659.750000 40045.230000     -0.91484     1.000000   105.000000 
+  [0.051570493002,-0.996636282201,-0.0636842551693,3652.69289457] [0.627203534849,0.0819463245359,-0.774531861754,962.935527375] [0.777145961457,0,0.62932039105,-1680.50675969]  [0,0,0,1] 40413.310000 40192.590000     -9.89749     1.000000   102.000000 
+  [0.0548327828959,-0.996636183544,-0.0608979749071,3639.0873037] [0.666879773814,0.0819463082018,-0.740645022684,862.386149688] [0.743144825477,0,0.669130606359,-1632.50572348]  [0,0,0,1] 39817.330000 38824.790000    22.175120     1.000000    93.000000 
+  [0.0579448017726,-0.996636282201,-0.0579448017726,3637.20509583] [0.704728273521,0.0819463245359,-0.704728273521,794.060306913] [0.707106781187,0,0.707106781187,-1580.03010256]  [0,0,0,1] 39895.570000 39376.050000    -59.23525     1.000000    90.000000 
+  [0.0608979870457,-0.996636282201,-0.0548327938256,3623.02400791] [0.740645096001,0.0819463245359,-0.666879839828,697.175028762] [0.669130606359,0,0.743144825477,-1523.22372895]  [0,0,0,1] 40997.750000 40550.260000    41.593690     1.000000    81.000000 
+  [0.0636842551693,-0.996636282201,-0.051570493002,3620.16706308] [0.774531861754,0.0819463245359,-0.627203534849,636.106604797] [0.62932039105,0,0.777145961457,-1462.24230499]  [0,0,0,1] 40370.910000 39761.240000     8.227517     1.000000    78.000000 
+  [0.0662959691761,-0.996636282201,-0.0481668410418,3607.70796738] [0.806295689511,0.0819463245359,-0.585808108577,543.250808196] [0.587785252292,0,0.809016994375,-1397.2529765]  [0,0,0,1] 39999.480000 39411.810000    70.785380     1.000000    69.000000 
+  [0.0687259705396,-0.996636282201,-0.0446311671183,3605.5238664] [0.835849516828,0.0819463245359,-0.542807022999,488.766946972] [0.544639035015,0,0.838670567945,-1328.43387472]  [0,0,0,1] 40137.500000 39760.600000    -58.24971     1.000000    66.000000 
+  [0.0709675987948,-0.996636282201,-0.0409731622679,3592.33824821] [0.863112338719,0.0819463245359,-0.4983181411,401.401576476] [0.5,0,0.866025403784,-1255.97362803]  [0,0,0,1] 39349.730000 38793.070000    88.441160     1.000000    57.000000 
+  [0.0730147097947,-0.996636282201,-0.0372028528279,3588.68703015] [0.888009429684,0.0819463245359,-0.452463403815,355.726113698] [0.45399049974,0,0.891006524188,-1180.07084493]  [0,0,0,1] 39822.450000 39138.010000    -88.34856     1.000000    54.000000 
+  [0.0748616925503,-0.996636282201,-0.0333305729541,3578.55399784] [0.910472548526,0.0819463245359,-0.40536849579,274.52722088] [0.406736643076,0,0.913545457643,-1100.93356967]  [0,0,0,1] 39827.790000 38858.570000    37.508620     1.000000    45.000000 
+  [0.0765034846101,-0.996636282201,-0.0293669362967,3580.20836769] [0.9304401254,0.0819463245359,-0.357162500895,241.405650451] [0.358367949545,0,0.933580426497,-1018.77871202]  [0,0,0,1] 39505.590000 38739.020000    72.908280     1.000000    42.000000 
+  [0.0779355859363,-0.996636282201,-0.0253228069082,3571.11169502] [0.947857430563,0.0819463245359,-0.307977548411,168.405709197] [0.309016994375,0,0.951056516295,-933.831452739]  [0,0,0,1] 39406.160000 38893.030000    52.051360     1.000000    33.000000 
+  [0.0791540712387,-0.996636282201,-0.021209269466,3570.27766288] [0.962676724395,0.0819463245359,-0.257948450874,128.42558249] [0.258819045103,0,0.965925826289,-846.324626351]  [0,0,0,1] 39531.560000 39091.820000    58.772460     1.000000    30.000000 
+  [0.0801556007337,-0.996636282201,-0.0170375988906,3564.42952706] [0.974857388239,0.0819463245359,-0.207212334563,83.6588849601] [0.207911690818,0,0.978147600734,-756.49808299]  [0,0,0,1] 39427.630000 39046.290000    59.961690     1.000000    21.000000 
+  [0.0809374292987,-0.996636282201,-0.0128192294408,3562.97333088] [0.984366035744,0.0819463245359,-0.155908263646,29.0829757451] [0.15643446504,0,0.987688340595,-664.598030968]  [0,0,0,1] 39532.620000 38599.300000    52.084560     1.000000    18.000000 
+  [0.0814974139959,-0.996636282201,-0.00856572337417,3558.53487849] [0.991176604367,0.0819463245359,-0.104176859015,-1.18713694823] [0.104528463268,0,0.994521895368,-570.876361938]  [0,0,0,1] 39014.650000 38968.380000    -63.00058     1.000000     9.000000 
+  [0.0818340199461,-0.996636282201,-0.00428873925518,3553.4951174] [0.995270426814,0.0819463245359,-0.0521599128554,-51.6324692773] [0.0523359562429,0,0.998629534755,-475.589960481]  [0,0,0,1] 39227.170000 38871.850000    12.309220     1.000000     6.000000 
+  [0.0819463245359,-0.996636282201,0,3552.56073262] [0.996636282201,0.0819463245359,0,-90.8439859756] [0,0,1,-379]  [0,0,0,1] 39068.530000 38951.920000    78.665920     1.000000     0.000000 
+  [0.0818340199461,-0.996636282201,0.00428873925518,3546.95381987] [0.995270426814,0.0819463245359,0.0521599128554,-131.676259583] [-0.0523359562429,0,0.998629534755,-281.371226863]  [0,0,0,1] 39057.400000 38974.840000     8.182144     1.000000     3.000000 
+  [0.0814974139959,-0.996636282201,0.00856572337417,3544.15688517] [0.991176604367,0.0819463245359,0.104176859015,-160.567451435] [-0.104528463268,0,0.994521895368,-182.971234751]  [0,0,0,1] 39035.180000 38782.230000    32.230680     1.000000    12.000000 
+  [0.0809374292987,-0.996636282201,0.0128192294408,3543.84477494] [0.984366035744,0.0819463245359,0.155908263646,-161.275971526] [-0.15643446504,0,0.987688340595,-84.0697312034]  [0,0,0,1] 39043.290000 38865.190000    42.476760     1.000000    15.000000 
+  [0.0801556007337,-0.996636282201,0.0170375988906,3542.63972101] [0.974857388239,0.0819463245359,0.207212334563,-182.680225678] [-0.207911690818,0,0.978147600734,15.0622016342]  [0,0,0,1] 38972.400000 38458.930000    54.047440     1.000000    24.000000 
+  [0.0791540712387,-0.996636282201,0.021209269466,3540.90314453] [0.962676724395,0.0819463245359,0.257948450874,-168.240747201] [-0.258819045103,0,0.965925826289,114.152850024]  [0,0,0,1] 39261.530000 38814.960000    43.824540     1.000000    27.000000 
+  [0.0779355859363,-0.996636282201,0.0253228069082,3539.20343897] [0.947857430563,0.0819463245359,0.307977548411,-182.310795287] [-0.309016994375,0,0.951056516295,212.930613387]  [0,0,0,1] 39145.120000 38548.910000    85.985650     1.000000    36.000000 
+  [0.0765034846101,-0.996636282201,0.0293669362967,3540.28693794] [0.9304401254,0.0819463245359,0.357162500895,-166.436328861] [-0.358367949545,0,0.933580426497,311.124748739]  [0,0,0,1] 39068.230000 38945.820000    -20.39378     1.000000    39.000000 
+  [0.0748616925503,-0.996636282201,0.0333305729541,3539.16020523] [0.910472548526,0.0819463245359,0.40536849579,-161.481184149] [-0.406736643076,0,0.913545457643,408.466112781]  [0,0,0,1] 38644.770000 38312.490000    28.723170     1.000000    48.000000 
+  [0.0730147097947,-0.996636282201,0.0372028528279,3542.74050015] [0.888009429684,0.0819463245359,0.452463403815,-140.14705467] [-0.45399049974,0,0.891006524188,504.687899599]  [0,0,0,1] 38551.200000 38377.930000    -32.28560     1.000000    51.000000 
+  [0.0709675987948,-0.996636282201,0.0409731622679,3538.60222138] [0.863112338719,0.0819463245359,0.4983181411,-119.113337126] [-0.5,0,0.866025403784,599.526371966]  [0,0,0,1] 38648.360000 38014.520000    -86.12270     1.000000    60.000000 
+  [0.0687259705396,-0.996636282201,0.0446311671183,3546.16627805] [0.835849516828,0.0819463245359,0.542807022999,-74.8817386918] [-0.544639035015,0,0.838670567945,692.721584219]  [0,0,0,1] 39392.190000 39280.810000    79.419320     1.000000    63.000000 
+  [0.0662959691761,-0.996636282201,0.0481668410418,3546.93628163] [0.806295689511,0.0819463245359,0.585808108577,-52.3131546671] [-0.587785252292,0,0.809016994375,784.018094761]  [0,0,0,1] 38233.800000 38121.190000    28.456480     1.000000    72.000000 
+  [0.0636842551693,-0.996636282201,0.051570493002,3560.33286861] [0.774531861754,0.0819463245359,0.627203534849,2.32667005088] [-0.62932039105,0,0.777145961457,873.165666201]  [0,0,0,1] 38817.150000 37993.650000    65.808050     1.000000    75.000000 
+  [0.0608979870457,-0.996636282201,0.0548327938256,3551.50050725] [0.740645096001,0.0819463245359,0.666879839828,31.4474137123] [-0.669130606359,0,0.743144825477,959.919951243]  [0,0,0,1] 38704.830000 38435.350000    43.695990     1.000000    84.000000 
+  [0.0579448017726,-0.996636282201,0.0579448017726,3566.87644746] [0.704728273521,0.0819463245359,0.704728273521,98.7503580288] [-0.707106781187,0,0.707106781187,1044.04316242]  [0,0,0,1] 38836.910000 38042.740000    30.870360     1.000000    87.000000 
+  [0.0548327828959,-0.996636183544,0.0608979749071,3558.7445638] [0.666879773814,0.0819463082018,0.740645022684,139.21135038] [-0.743144825477,0,0.669130606359,1125.30472386]  [0,0,0,1] 38737.180000 37888.440000    -65.01125     1.000000    96.000000 
+  [0.051570493002,-0.996636282201,0.0636842551693,3577.08153097] [0.627203534849,0.0819463245359,0.774531861754,220.985939563] [-0.777145961457,0,0.62932039105,1203.48190328]  [0,0,0,1] 38045.040000 37368.970000     1.267321     1.000000    99.000000 
+  [0.0481668410418,-0.996636282201,0.0662959691761,3567.41008641] [0.585808108577,0.0819463245359,0.806295689511,271.129430647] [-0.809016994375,0,0.587785252292,1278.36042244]  [0,0,0,1] 37602.840000 37077.300000    -52.20618     1.000000   108.000000 
+  [0.0446311671183,-0.996636282201,0.0687259705396,3586.40901829] [0.542807022999,0.0819463245359,0.835849516828,361.164407973] [-0.838670567945,0,0.544639035015,1349.73504455]  [0,0,0,1] 39523.340000 38642.250000    -20.61330     1.000000   111.000000 
+  [0.0409731622679,-0.996636282201,0.0709675987948,3579.85223744] [0.4983181411,0.0819463245359,0.863112338719,418.265980414] [-0.866025403784,0,0.5,1417.41013672]  [0,0,0,1] 36923.730000 36471.380000    84.331470     1.000000   120.000000 
+  ...
+</code></pre>
+    </div>
+
+    <ul>
+      <li>particles.star：</li>
+    </ul>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  # version 30001
+
+  data_optics
+
+  loop_ 
+  _rlnOpticsGroup #1 
+  _rlnOpticsGroupName #2 
+  _rlnSphericalAberration #3 
+  _rlnVoltage #4 
+  _rlnTomoTiltSeriesPixelSize #5 
+          1 opticsGroup1     2.700000   300.000000     1.350000 
+    
+
+  # version 30001
+
+  data_particles
+
+  loop_ 
+  _rlnTomoName #1 
+  _rlnTomoParticleId #2 
+  _rlnTomoManifoldIndex #3 
+  _rlnCoordinateX #4 
+  _rlnCoordinateY #5 
+  _rlnCoordinateZ #6 
+  _rlnOriginXAngst #7 
+  _rlnOriginYAngst #8 
+  _rlnOriginZAngst #9 
+  _rlnAngleRot #10 
+  _rlnAngleTilt #11 
+  _rlnAnglePsi #12 
+  _rlnClassNumber #13 
+  _rlnRandomSubset #14 
+  _rlnTomoParticleName #15 
+  _rlnOpticsGroup #16 
+      TS_01            1            1   644.000000  1164.000000    72.000000     0.000000     0.000000     0.000000     -8.72000   167.290000    87.570000           -1            2    TS_01/1            1 
+      TS_01            2            1   624.000000  1112.000000    64.000000     0.000000     0.000000     0.000000   -130.65000   175.350000    84.290000           -1            1    TS_01/2            1 
+      TS_01            3            1   676.000000  1120.000000    68.000000     0.000000     0.000000     0.000000   -117.88000   170.530000    95.890000           -1            2    TS_01/3            1 
+      TS_01            4            1   696.000000  1168.000000    84.000000     0.000000     0.000000     0.000000    53.640000   158.620000    86.530000           -1            1    TS_01/4            1 
+      TS_01            5            1   592.000000  1156.000000    72.000000     0.000000     0.000000     0.000000    -78.74000   169.660000    78.390000           -1            2    TS_01/5            1 
+      TS_01            6            1   659.000000  1071.000000    67.000000     0.000000     0.000000     0.000000    54.340000   178.380000    -31.41000            1            1    TS_01/6            1 
+      TS_01            7            1   712.000000  1076.000000    64.000000     0.000000     0.000000     0.000000    61.580000   177.850000   156.650000           -1            2    TS_01/7            1 
+      TS_01            8            1   660.000000  1200.000000   100.000000     0.000000     0.000000     0.000000   106.210000   148.260000    74.990000           -1            1    TS_01/8            1 
+      TS_01            9            1   612.000000  1204.000000    80.000000     0.000000     0.000000     0.000000   -118.20000   169.440000    98.700000           -1            2    TS_01/9            1 
+      TS_01           10            1   570.000000  1106.000000    64.000000     0.000000     0.000000     0.000000    -19.63000   173.260000    16.530000            1            1   TS_01/10            1
+      ...
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<ol>
+  <li>
+    <p>数据输出：输出每个particle的FBP重建结果以及对应的CTF weight volume。</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> |-Subtomograms
+     |-1_data.mrc
+     |-1_weight.mrc
+     |-2_data.mrc
+     |-2_weight.mrc
+     |-......
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Program detail：</p>
+    <div class="language-c++ highlighter-rouge"><pre class="highlight"><code> <span class="kt">void</span> <span class="n">SubtomoProgram</span><span class="o">::</span><span class="n">run</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="c1">//输入参数
+</span>     <span class="k">if</span> <span class="p">(</span><span class="n">cropSize</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cropSize</span> <span class="o">=</span> <span class="n">boxSize</span><span class="p">;</span>
+        
+     <span class="c1">//默认需要ctf
+</span>     <span class="kt">bool</span> <span class="n">do_ctf</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+     <span class="c1">//s2D是指每个particle对应的2D crop image的size
+</span>     <span class="k">const</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">s2D</span> <span class="o">=</span> <span class="n">boxSize</span><span class="p">;</span> 
+        
+     <span class="c1">//s3D是指最后输出的particle volume boxsize
+</span>     <span class="k">const</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">s3D</span> <span class="o">=</span> <span class="n">cropSize</span><span class="p">;</span> 
+     <span class="c1">//sh3D是ctf weight volume的x轴长度，因为relion的fft是rfft，x轴只有正半轴
+</span>     <span class="k">const</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">sh3D</span> <span class="o">=</span> <span class="n">s3D</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> 
+        
+     <span class="c1">//s02D指的是在bin1rawdata上s2D size对应的大小
+</span>     <span class="k">const</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">s02D</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">binning</span> <span class="o">*</span> <span class="n">s2D</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">);</span> 
+        
+     <span class="k">const</span> <span class="kt">double</span> <span class="n">relative_box_scale</span> <span class="o">=</span> <span class="n">cropSize</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">boxSize</span><span class="p">;</span>
+     <span class="k">const</span> <span class="kt">double</span> <span class="n">binned_pixel_size</span> <span class="o">=</span> <span class="n">binning</span> <span class="o">*</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getOriginalPixelSize</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+     <span class="p">...</span>
+ <span class="p">}</span>
+</code></pre>
+    </div>
+
+    <p>遍历particles，投影到各个view上crop出<code class="highlighter-rouge">boxSize</code>大小的2D image。</p>
+    <div class="language-c++ highlighter-rouge"><pre class="highlight"><code> <span class="kt">void</span> <span class="n">SubtomoProgram</span><span class="o">::</span><span class="n">processTomograms</span><span class="p">(</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">tomoIndices</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">TomogramSet</span><span class="o">&amp;</span> <span class="n">tomogramSet</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">ParticleSet</span><span class="o">&amp;</span> <span class="n">particleSet</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ParticleIndex</span><span class="o">&gt;&gt;&amp;</span> <span class="n">particles</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">AberrationsCache</span><span class="o">&amp;</span> <span class="n">aberrationsCache</span><span class="p">,</span>
+         <span class="kt">long</span> <span class="kt">int</span> <span class="n">s02D</span><span class="p">,</span>
+         <span class="kt">long</span> <span class="kt">int</span> <span class="n">s2D</span><span class="p">,</span>
+         <span class="kt">long</span> <span class="kt">int</span> <span class="n">s3D</span><span class="p">,</span>
+         <span class="kt">double</span> <span class="n">relative_box_scale</span><span class="p">,</span>
+         <span class="kt">bool</span> <span class="n">do_ctf</span><span class="p">,</span>
+         <span class="kt">int</span> <span class="n">verbosity</span><span class="p">,</span>
+         <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">sum_data</span><span class="p">,</span>
+         <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">sum_weights</span> <span class="p">)</span>
+ <span class="p">{</span>
+     <span class="p">...</span>
+     <span class="cp">#pragma omp parallel for num_threads(outer_thread_num)
+</span>     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">pc</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">){</span>
+         <span class="c1">//particle对应3D坐标
+</span>         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">d3Vector</span><span class="o">&gt;</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getTrajectoryInPixels</span><span class="p">(</span>
+                         <span class="n">part_id</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">optics</span><span class="p">.</span><span class="n">pixelSize</span><span class="p">,</span> <span class="o">!</span><span class="n">apply_offsets</span><span class="p">);</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tomogram</span><span class="p">.</span><span class="n">isVisibleAtAll</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">s2D</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+         <span class="p">{</span>
+             <span class="k">continue</span><span class="p">;</span>
+         <span class="p">}</span>
+
+         <span class="c1">//判断particle可不可以被每个view看到，每个view判断一次
+</span>         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">isVisible</span> <span class="o">=</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">determineVisiblity</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">s2D</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+
+         <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">d4Matrix</span><span class="o">&gt;</span> <span class="n">projCut</span><span class="p">(</span><span class="n">fc</span><span class="p">),</span> <span class="n">projPart</span><span class="p">(</span><span class="n">fc</span><span class="p">);</span>
+
+         <span class="c1">//2D图片数据（用于FBP）
+</span>         <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="n">fComplex</span><span class="o">&gt;</span> <span class="n">particleStack</span> <span class="o">=</span> <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="n">fComplex</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sh2D</span><span class="p">,</span><span class="n">s2D</span><span class="p">,</span><span class="n">fc</span><span class="p">);</span>
+         <span class="c1">//CTF volume
+</span>         <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">weightStack</span><span class="p">(</span><span class="n">sh2D</span><span class="p">,</span><span class="n">s2D</span><span class="p">,</span><span class="n">fc</span><span class="p">);</span>
+         <span class="c1">//crop 2D image的函数
+</span>         <span class="n">TomoExtraction</span><span class="o">::</span><span class="n">extractAt3D_Fourier</span><span class="p">(</span>
+                     <span class="n">tomogram</span><span class="p">.</span><span class="n">stack</span><span class="p">,</span> <span class="n">s02D</span><span class="p">,</span> <span class="n">binning</span><span class="p">,</span> <span class="n">tomogram</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">isVisible</span><span class="p">,</span>
+                     <span class="n">particleStack</span><span class="p">,</span> <span class="n">projCut</span><span class="p">,</span> <span class="n">inner_thread_num</span><span class="p">,</span> <span class="n">do_circle_precrop</span><span class="p">);</span>
+         <span class="p">...</span>
+     <span class="p">}</span>
+     <span class="p">...</span>
+ <span class="p">}</span>
+</code></pre>
+    </div>
+
+    <p>下方函数源码位置:<code class="highlighter-rouge">src/jaz/tomography/extraction.h</code></p>
+    <div class="language-c++ highlighter-rouge"><pre class="highlight"><code> <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+ <span class="kt">void</span> <span class="n">TomoExtraction</span><span class="o">::</span><span class="n">extractAt3D_Fourier</span><span class="p">(</span>
+         <span class="k">const</span> <span class="n">RawImage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span> <span class="n">bin</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">Tomogram</span><span class="o">&amp;</span> <span class="n">tomogram</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d3Vector</span><span class="o">&gt;&amp;</span> <span class="n">trajectory</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;&amp;</span> <span class="n">isVisible</span><span class="p">,</span>
+         <span class="n">RawImage</span><span class="o">&lt;</span><span class="n">tComplex</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&amp;</span> <span class="n">out</span><span class="p">,</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d4Matrix</span><span class="o">&gt;&amp;</span> <span class="n">projOut</span><span class="p">,</span>
+         <span class="kt">int</span> <span class="n">num_threads</span><span class="p">,</span>
+         <span class="kt">bool</span> <span class="n">circle_crop</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="k">const</span> <span class="kt">int</span> <span class="n">fc</span> <span class="o">=</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">frameCount</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d2Vector</span><span class="o">&gt;</span> <span class="n">centers</span><span class="p">(</span><span class="n">fc</span><span class="p">);</span>
+        
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">fc</span><span class="p">;</span> <span class="n">f</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="c1">//Apply投影矩阵获得3D坐标到图片上的像素位置
+</span>         <span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">projectPoint</span><span class="p">(</span><span class="n">trajectory</span><span class="p">[</span><span class="n">f</span><span class="p">],</span> <span class="n">f</span><span class="p">);</span>
+     <span class="p">}</span>
+        
+         <span class="c1">//根据2Dcenter crop image
+</span>     <span class="n">extractAt2D_Fourier</span><span class="p">(</span>
+         <span class="n">stack</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">bin</span><span class="p">,</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">projectionMatrices</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">isVisible</span><span class="p">,</span>
+         <span class="n">out</span><span class="p">,</span> <span class="n">projOut</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">,</span> <span class="n">circle_crop</span><span class="p">);</span>
+ <span class="p">}</span>
+
+ <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+ <span class="kt">void</span> <span class="n">TomoExtraction</span><span class="o">::</span><span class="n">extractAt2D_Fourier</span><span class="p">(</span>
+         <span class="k">const</span> <span class="n">RawImage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span> <span class="n">bin</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d4Matrix</span><span class="o">&gt;&amp;</span> <span class="n">projIn</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d2Vector</span><span class="o">&gt;&amp;</span> <span class="n">centers</span><span class="p">,</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;&amp;</span> <span class="n">isVisible</span><span class="p">,</span>
+         <span class="n">RawImage</span><span class="o">&lt;</span><span class="n">tComplex</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&amp;</span> <span class="n">out</span><span class="p">,</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d4Matrix</span><span class="o">&gt;&amp;</span> <span class="n">projOut</span><span class="p">,</span>
+         <span class="kt">int</span> <span class="n">num_threads</span><span class="p">,</span>
+         <span class="kt">bool</span> <span class="n">circle_crop</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="k">const</span> <span class="kt">int</span> <span class="n">sh</span> <span class="o">=</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="k">const</span> <span class="kt">int</span> <span class="n">fc</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">zdim</span><span class="p">;</span>
+
+     <span class="c1">//如果有bin的需求，那么会在这里bin数据
+</span>     <span class="k">const</span> <span class="kt">int</span> <span class="n">sb</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">s</span> <span class="o">/</span> <span class="n">bin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">);</span>
+     <span class="k">const</span> <span class="kt">int</span> <span class="n">sbh</span> <span class="o">=</span> <span class="n">sb</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        
+     <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">smallStack</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">fc</span><span class="p">);</span>
+     <span class="n">projOut</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">fc</span><span class="p">);</span>
+                
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d2Vector</span><span class="o">&gt;</span> <span class="n">integralShift</span><span class="p">(</span><span class="n">fc</span><span class="p">);</span>
+                
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">fc</span><span class="p">;</span> <span class="n">f</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="n">integralShift</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">gravis</span><span class="o">::</span><span class="n">d2Vector</span><span class="p">(</span>
+                 <span class="n">round</span><span class="p">(</span><span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">].</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">round</span><span class="p">(</span><span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">].</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+     <span class="p">}</span>
+        
+     <span class="c1">//简单的crop,如果 not visible，就全填0
+</span>     <span class="n">extractSquares</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">integralShift</span><span class="p">,</span> <span class="n">isVisible</span><span class="p">,</span> <span class="n">smallStack</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+        
+     <span class="k">if</span> <span class="p">(</span><span class="n">circle_crop</span><span class="p">)</span> <span class="c1">//默认关闭
+</span>     <span class="p">{</span>
+         <span class="c1">//在ctf前提前在原数据上crop circle
+</span>         <span class="n">cropCircle</span><span class="p">(</span><span class="n">smallStack</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">EDGE_FALLOFF</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+     <span class="p">}</span>
+        
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gravis</span><span class="o">::</span><span class="n">d2Vector</span><span class="o">&gt;</span> <span class="n">posInNewImg</span><span class="p">(</span><span class="n">fc</span><span class="p">);</span>
+
+     <span class="c1">//根据crop位置调整每张图的投影矩阵
+</span>     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">fc</span><span class="p">;</span> <span class="n">f</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="n">projOut</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">projIn</span><span class="p">[</span><span class="n">f</span><span class="p">];</span>
+            
+         <span class="n">projOut</span><span class="p">[</span><span class="n">f</span><span class="p">](</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">+=</span> <span class="n">sb</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">].</span><span class="n">x</span><span class="p">;</span>
+         <span class="n">projOut</span><span class="p">[</span><span class="n">f</span><span class="p">](</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">+=</span> <span class="n">sb</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">].</span><span class="n">y</span><span class="p">;</span>
+            
+         <span class="n">posInNewImg</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">centers</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">-</span> <span class="n">integralShift</span><span class="p">[</span><span class="n">f</span><span class="p">])</span> <span class="o">/</span> <span class="n">bin</span><span class="p">;</span>
+     <span class="p">}</span>	
+        
+     <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="n">tComplex</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">smallStackFS</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">fc</span><span class="p">);</span>
+
+     <span class="n">NewStackHelper</span><span class="o">::</span><span class="n">FourierTransformStack_fast</span><span class="p">(</span><span class="n">smallStack</span><span class="p">,</span> <span class="n">smallStackFS</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+
+     <span class="k">if</span> <span class="p">(</span><span class="n">bin</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="c1">//频域apply binning
+</span>         <span class="n">smallStackFS</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">::</span><span class="n">FourierCrop_fftwHalfStack</span><span class="p">(</span>
+                 <span class="n">smallStackFS</span><span class="p">,</span> <span class="n">bin</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+
+         <span class="c1">//对应的数据scale
+</span>         <span class="n">smallStackFS</span> <span class="o">/=</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="n">bin</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="c1">//返回频域数据
+</span>     <span class="n">NewStackHelper</span><span class="o">::</span><span class="n">shiftStack</span><span class="p">(</span><span class="n">smallStackFS</span><span class="p">,</span> <span class="n">posInNewImg</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre>
+    </div>
+
+    <p>回到<code class="highlighter-rouge">subtomo.cpp</code></p>
+    <div class="language-c++ highlighter-rouge"><pre class="highlight"><code>             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">fc</span><span class="p">;</span> <span class="n">f</span><span class="o">++</span><span class="p">)</span>
+             <span class="p">{</span>
+                 <span class="c1">//看不见的view全是0，不用管
+</span>                 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isVisible</span><span class="p">[</span><span class="n">f</span><span class="p">])</span> <span class="k">continue</span><span class="p">;</span>
+
+                 <span class="n">d3Matrix</span> <span class="n">A</span><span class="p">;</span>
+
+                 <span class="c1">//计算particle自带的旋转（如果需要的话），默认不需要，即A是Identity矩阵
+</span>                 <span class="k">if</span> <span class="p">(</span><span class="n">apply_orientations</span><span class="p">)</span><span class="c1">//是否要在重建的particle上apply欧拉角旋转,默认关闭
+</span>                 <span class="p">{</span>
+                     <span class="n">A</span> <span class="o">=</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getMatrix3x3</span><span class="p">(</span><span class="n">part_id</span><span class="p">);</span>
+                 <span class="p">}</span>
+                 <span class="k">else</span>
+                 <span class="p">{</span>
+                     <span class="n">A</span> <span class="o">=</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getSubtomogramMatrix</span><span class="p">(</span><span class="n">part_id</span><span class="p">);</span>
+                 <span class="p">}</span>
+                    
+                 <span class="n">projPart</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">projCut</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">*</span> <span class="n">d4Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+                 <span class="k">if</span> <span class="p">(</span><span class="n">do_ctf</span><span class="p">)</span><span class="c1">//默认开启
+</span>                 <span class="p">{</span>
+                     <span class="k">const</span> <span class="n">d3Vector</span> <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">apply_offsets</span><span class="p">)</span> <span class="o">?</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">part_id</span><span class="p">)</span> <span class="o">:</span> <span class="n">particleSet</span><span class="p">.</span><span class="n">getParticleCoord</span><span class="p">(</span><span class="n">part_id</span><span class="p">);</span>
+
+                     <span class="c1">//根据输入的ctf参数计算每个2Dcropimage对应的频域ctf image
+</span>                     <span class="n">CTF</span> <span class="n">ctf</span> <span class="o">=</span> <span class="n">tomogram</span><span class="p">.</span><span class="n">getCtf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+                     <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">ctfImg</span><span class="p">(</span><span class="n">sh2D</span><span class="p">,</span> <span class="n">s2D</span><span class="p">);</span>
+                     <span class="n">ctf</span><span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">s2D</span><span class="p">,</span> <span class="n">s2D</span><span class="p">,</span> <span class="n">binnedPixelSize</span><span class="p">,</span> <span class="n">gammaOffset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ctfImg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+
+                     <span class="c1">//默认开启，即把particle从黑的变成白的
+</span>                     <span class="k">const</span> <span class="kt">float</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">flip_value</span><span class="o">?</span> <span class="o">-</span><span class="mf">1.</span><span class="n">f</span> <span class="o">:</span> <span class="mf">1.</span><span class="n">f</span><span class="p">;</span>
+                     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">s2D</span><span class="p">;</span>  <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">xRanges</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">f</span><span class="p">);</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+                     <span class="p">{</span>
+                         <span class="k">const</span> <span class="kt">double</span> <span class="n">c</span> <span class="o">=</span> <span class="n">ctfImg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">doseWeights</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">f</span><span class="p">);</span>
+
+                         <span class="n">particleStack</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">f</span><span class="p">)</span> <span class="o">*=</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+                         <span class="n">weightStack</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">f</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+                     <span class="p">}</span>
+                 <span class="p">}</span>
+             <span class="p">}</span>
+             <span class="p">...</span>
+             <span class="c1">//根据boxsize与cropsize做circle crop
+</span>             <span class="k">const</span> <span class="kt">int</span> <span class="n">boundary</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxSize</span> <span class="o">-</span> <span class="n">cropSize</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">do_gridding_precorrection</span> <span class="o">||</span> <span class="n">do_circle_crop</span><span class="p">)</span>
+             <span class="p">{</span>
+                 <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">particlesRS</span><span class="p">;</span>
+
+                 <span class="c1">//在时域上做
+</span>                 <span class="n">particlesRS</span> <span class="o">=</span> <span class="n">NewStackHelper</span><span class="o">::</span><span class="n">inverseFourierTransformStack</span><span class="p">(</span><span class="n">particleStack</span><span class="p">);</span>
+                 <span class="k">if</span> <span class="p">(</span><span class="n">do_circle_crop</span><span class="p">)</span><span class="c1">//默认开启
+</span>                 <span class="p">{</span>
+                     <span class="k">const</span> <span class="kt">double</span> <span class="n">crop_boundary</span> <span class="o">=</span> <span class="n">do_narrow_circle_crop</span><span class="o">?</span> <span class="n">boundary</span> <span class="o">:</span> <span class="mf">0.0</span><span class="p">;</span>
+                     <span class="n">TomoExtraction</span><span class="o">::</span><span class="n">cropCircle</span><span class="p">(</span><span class="n">particlesRS</span><span class="p">,</span> <span class="n">crop_boundary</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span><span class="c1">//在boundary边缘5个pixel进行平滑处理，再外面全设为0
+</span>                 <span class="p">}</span>
+
+                 <span class="k">if</span> <span class="p">(</span><span class="n">do_gridding_precorrection</span><span class="p">)</span><span class="c1">//默认关闭
+</span>                 <span class="p">{</span>
+                     <span class="n">TomoExtraction</span><span class="o">::</span><span class="n">griddingPreCorrect</span><span class="p">(</span><span class="n">particlesRS</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">);</span>
+                 <span class="p">}</span>
+                 <span class="n">particleStack</span> <span class="o">=</span> <span class="n">NewStackHelper</span><span class="o">::</span><span class="n">FourierTransformStack</span><span class="p">(</span><span class="n">particlesRS</span><span class="p">);</span>
+             <span class="p">}</span>
+
+             <span class="c1">//开始做FBP
+</span>             <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="n">fComplex</span><span class="o">&gt;</span> <span class="n">dataImgFS</span><span class="p">(</span><span class="n">sh3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">);</span>
+             <span class="n">dataImgFS</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">fComplex</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">));</span>
+
+             <span class="n">BufferedImage</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">ctfImgFS</span><span class="p">(</span><span class="n">sh3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">),</span>
+                     <span class="n">dataImgRS</span><span class="p">(</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">),</span> <span class="n">dataImgDivRS</span><span class="p">(</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">),</span>
+                     <span class="n">multiImageFS</span><span class="p">(</span><span class="n">sh3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">,</span><span class="n">s3D</span><span class="p">);</span>
+
+             <span class="n">ctfImgFS</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+             <span class="n">dataImgRS</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+             <span class="n">dataImgDivRS</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+
+             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">fc</span><span class="p">;</span> <span class="n">f</span><span class="o">++</span><span class="p">)</span>
+             <span class="p">{</span>
+                 <span class="k">if</span> <span class="p">(</span><span class="n">isVisible</span><span class="p">[</span><span class="n">f</span><span class="p">])</span>
+                 <span class="p">{</span>
+                     <span class="c1">//FBP时会将旋转后超过cropsize的部分扔掉，即在3D频域crop volume
+</span>                     <span class="n">FourierBackprojection</span><span class="o">::</span><span class="n">backprojectSlice_forward_with_multiplicity</span><span class="p">(</span>
+                         <span class="o">&amp;</span><span class="n">xRanges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">f</span><span class="p">),</span>
+                         <span class="n">particleStack</span><span class="p">.</span><span class="n">getSliceRef</span><span class="p">(</span><span class="n">f</span><span class="p">),</span>
+                         <span class="n">weightStack</span><span class="p">.</span><span class="n">getSliceRef</span><span class="p">(</span><span class="n">f</span><span class="p">),</span>
+                         <span class="n">projPart</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">*</span> <span class="n">relative_box_scale</span><span class="p">,</span><span class="c1">//投影矩阵根据cropsize与boxsize做scale，relative_box_scale = crop_size/bos_size.
+</span>                         <span class="n">dataImgFS</span><span class="p">,</span>
+                         <span class="n">ctfImgFS</span><span class="p">,</span>
+                         <span class="n">multiImageFS</span><span class="p">);</span>
+                        
+                 <span class="p">}</span>
+             <span class="p">}</span>
+
+             <span class="n">Centering</span><span class="o">::</span><span class="n">shiftInSitu</span><span class="p">(</span><span class="n">dataImgFS</span><span class="p">);</span>
+
+             <span class="c1">//因为有频域crop，需要调整数据scale
+</span>             <span class="k">if</span> <span class="p">(</span><span class="n">s3D</span> <span class="o">!=</span> <span class="n">s2D</span><span class="p">)</span>
+             <span class="p">{</span>
+                 <span class="n">dataImgFS</span> <span class="o">*=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">s2D</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">s3D</span><span class="p">);</span>
+             <span class="p">}</span>
+
+             <span class="n">FFT</span><span class="o">::</span><span class="n">inverseFourierTransform</span><span class="p">(</span><span class="n">dataImgFS</span><span class="p">,</span> <span class="n">dataImgRS</span><span class="p">,</span> <span class="n">FFT</span><span class="o">::</span><span class="n">Both</span><span class="p">);</span>
+
+             <span class="c1">//保存结果
+</span>             <span class="n">dataImgRS</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">outData</span><span class="p">,</span> <span class="n">binnedPixelSize</span><span class="p">,</span> <span class="n">write_float16</span><span class="p">);</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">write_ctf</span><span class="p">)</span>
+             <span class="p">{</span>
+                 <span class="n">Centering</span><span class="o">::</span><span class="n">fftwHalfToHumanFull</span><span class="p">(</span><span class="n">ctfImgFS</span><span class="p">).</span><span class="n">write</span><span class="p">(</span><span class="n">outCTF</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">binnedPixelSize</span><span class="p">,</span> <span class="n">write_float16</span><span class="p">);</span>
+             <span class="p">}</span>
+             <span class="p">...</span>
+</code></pre>
+    </div>
+    <p>重建完后下一步就是3D initial model与autorefine。</p>
+  </li>
+</ol>
+
+                        
+                            <div class="share uk-text-center uk-margin-medium-top">
+    
+        <a class="uk-link-muted" href="https://twitter.com/intent/tweet?text=Relion_subtomo_averaging_code_review&url=http://localhost:4000/docs/relion_subtomo_averaging_code_review/relion_subtomo_averaging_code_review/&via=&related=" rel="nofollow" target="_blank" title="分享到 Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;"><span data-uk-icon="icon: twitter; ratio: 1.2"></span></a>
+    
+    
+        <a class="uk-link-muted uk-margin-small-left" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocs%2Frelion_subtomo_averaging_code_review%2Frelion_subtomo_averaging_code_review%2F" rel="nofollow" target="_blank" title="分享到 Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><span data-uk-icon="icon: facebook; ratio: 1.2"></span></a>
+    
+</div>
+                        
+                    </div>
+
+                    
+
+                    <hr class="uk-margin-medium">
+
+                    <script src="https://giscus.app/client.js" data-repo="Q-M-D/cs-self-learning"
+                    data-repo-id="R_kgDOIjUjaA" data-category="General" data-category-id="DIC_kwDOIjUjaM4CYRJe"
+                    data-mapping="og:title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="bottom" data-theme="noborder_light" data-lang="zh-CN" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+
+                    
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+                    <div class="uk-margin-large-top">
+    <h3>相关文档</h3>
+
+    
+    
+    
+
+    <ul class="uk-list link-secondary">
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    </ul>
+</div>
+
+
+                    
+
+                </article>
+
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+
+    
+        
+    
+
+    
+
+    </body>
+
+</html>

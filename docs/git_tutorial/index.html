@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Git 教程 | Cellverse</title>
+<meta name="generator" content="Jekyll v3.4.1" />
+<meta property="og:title" content="Git 教程" />
+<meta property="og:locale" content="cn" />
+<meta name="description" content="OPEN-EN." />
+<meta property="og:description" content="OPEN-EN." />
+<link rel="canonical" href="http://localhost:4000/docs/git_tutorial/" />
+<meta property="og:url" content="http://localhost:4000/docs/git_tutorial/" />
+<meta property="og:site_name" content="Cellverse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-25T18:05:01+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"}},"dateModified":"2023-09-25T18:05:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docs/git_tutorial/"},"datePublished":"2023-09-25T18:05:01+08:00","url":"http://localhost:4000/docs/git_tutorial/","description":"OPEN-EN.","headline":"Git 教程","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta property="og:image" content="http://localhost:4000/uploads/logo.png"/>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/png" href="/uploads/favicon.png" >
+  <link rel="alternate" type="application/rss+xml" title="Cellverse" href="/feed.xml">
+  <script src="/assets/js/main.js"></script>
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+</head>
+
+    <body>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">文档</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="/uploads/logo.png" alt="Cellverse"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="搜索" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">没有结果</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/" >主页</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/#about" >关于我们</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                                                                                                        
+                                
+                            
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li><a href="/sources/markdown_tutorial/" >资源</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">菜单</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-grid-large" data-uk-grid>
+
+            <div class="sidebar-fixed-width uk-visible@m">
+                <div class="sidebar-docs uk-position-fixed uk-margin-top">
+                    
+                    <h5>基础知识</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+                    
+                      
+                      
+                      <li class="uk-active"><a href="/docs/git_tutorial/">Git 教程</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+                    
+                      
+                      
+                      <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+                    
+                    </ul>
+                    
+                    <h5>数据处理案例</h5>
+                    <ul class="uk-nav uk-nav-default doc-nav">
+                    
+                      
+                      
+                      <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+                    
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="uk-width-1-1 uk-width-expand@m">
+
+                <article class="uk-article">
+
+                    <h1 class="uk-article-title">Git 教程</h1>
+
+                    
+
+                    <div class="uk-article-meta uk-margin-top uk-margin-medium-bottom uk-flex uk-flex-middle">
+                        
+
+
+
+<div>
+  
+  <time datetime="2023-09-25T18:05:01+08:00" itemprop="datePublished">
+    
+    Sep 25, 2023
+  </time>
+</div>
+                    </div>
+
+                    <div class="article-content link-primary">
+                        <ul id="markdown-toc">
+  <li><a href="#1-什么是-git-" id="markdown-toc-1-什么是-git-">1 什么是 Git ？</a></li>
+  <li><a href="#2-git-基本操作" id="markdown-toc-2-git-基本操作">2 Git 基本操作</a>    <ul>
+      <li><a href="#第一次进入-git-要做的事情个人配置" id="markdown-toc-第一次进入-git-要做的事情个人配置">第一次进入 Git 要做的事情–个人配置</a></li>
+      <li><a href="#创建本地库" id="markdown-toc-创建本地库">创建本地库</a></li>
+      <li><a href="#git-三个区域" id="markdown-toc-git-三个区域">Git 三个区域</a>        <ul>
+          <li><a href="#工作区" id="markdown-toc-工作区">工作区</a></li>
+          <li><a href="#暂存区" id="markdown-toc-暂存区">暂存区</a></li>
+          <li><a href="#版本库" id="markdown-toc-版本库">版本库</a></li>
+        </ul>
+      </li>
+      <li><a href="#版本回退" id="markdown-toc-版本回退">版本回退</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-git-分支" id="markdown-toc-3-git-分支">3 Git 分支</a></li>
+  <li><a href="#4-变基-rebase" id="markdown-toc-4-变基-rebase">4 变基 rebase</a>    <ul>
+      <li><a href="#合并版本操作" id="markdown-toc-合并版本操作">合并版本操作</a></li>
+      <li><a href="#合并分支操作" id="markdown-toc-合并分支操作">合并分支操作</a></li>
+      <li><a href="#合并拉取操作" id="markdown-toc-合并拉取操作">合并拉取操作</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-杂项" id="markdown-toc-4-杂项">4 杂项</a>    <ul>
+      <li><a href="#vscode--git-集成开发" id="markdown-toc-vscode--git-集成开发">VSCode + Git 集成开发</a></li>
+      <li><a href="#暂存" id="markdown-toc-暂存">暂存</a></li>
+      <li><a href="#3-个配置文件" id="markdown-toc-3-个配置文件">3 个配置文件</a></li>
+      <li><a href="#gitignore" id="markdown-toc-gitignore">.gitignore</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-什么是-git-">1 什么是 Git ？</h1>
+
+<p><a href="https://git-scm.com">Git</a> 是一种开源的分布式版本控制系统（Distributed Version Control System），常用于大型项目的版本管理。</p>
+
+<ol>
+  <li>
+    <p>什么是版本控制系统？</p>
+
+    <p>版本控制系统是用于管理文件不同版本的系统。一个项目（Project）可能有很多的版本（Version），也有很多的人在参与。在进行项目时，我们需要不停的更新版本，所以我们需要一个能够自动管理不同版本文件的系统，以方便我们进行回退，合并等操作。</p>
+  </li>
+  <li>
+    <p>什么是分布式？</p>
+
+    <p>版本控制系统有三种形式：局部式、集中式、分布式。</p>
+
+    <p>局部式：项目不同的版本在每个人自己电脑，可能导致不同人的版本差距较大，难以管理。</p>
+
+    <p>集中式：项目不在本地保存，都提交到远程服务器上，以便进行统一地版本管理。但是一旦远程服务器崩坏就会导致所有版本丢失。</p>
+
+    <p>分布式：结合了二者的优点，每个人在本地有自己的版本，提交到远程服务器后就有服务器的版本。二者之间版本并行，也可以通过 Git 进行同步。</p>
+  </li>
+</ol>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://git-scm.com/download">下载地址</a></td>
+      <td><a href="https://git-scm.com/docs">Git 文档</a></td>
+      <td><a href="https://www.bilibili.com/video/BV1zN4y1N7wz">视频教程</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="2-git-基本操作">2 Git 基本操作</h1>
+
+<h2 id="第一次进入-git-要做的事情个人配置">第一次进入 Git 要做的事情–个人配置</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git config --global user.name <span class="s2">"yourname"</span>
+git config --global user.email <span class="s2">"youremail"</span>
+</code></pre>
+</div>
+
+<p>在 Git 中，我们使用 <code class="highlighter-rouge">git config</code> 来配置 Git 的配置文件。</p>
+
+<h2 id="创建本地库">创建本地库</h2>
+
+<p>要创建本地库，请在一个未被 Git 管理的文件夹内依次输入已下指令。</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">git init</code>: 第一次创建本地库要做的事情，生成 <code class="highlighter-rouge">.git</code> 文件夹，使 Git 开始管理该文件夹。</p>
+  </li>
+  <li><code class="highlighter-rouge">git add &lt;file&gt;</code>: 使 Git 对文件开始进行管理。
+    <ul>
+      <li>或者：<code class="highlighter-rouge">git add .</code>: 使 Git 对文件夹内所有文件开始进行管理。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">git commit -m "message"</code>: 生成本地版本并添加提交信息，不要忘记 <code class="highlighter-rouge">-m</code> 和引号 <code class="highlighter-rouge">""</code>。</li>
+</ol>
+
+<p>以下是一些辅助指令：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">git status</code>: 检测当前文件夹内文件状态，红色代表未进行管理（新增文件或者修改原来的文件），绿色代表已进行管理。</li>
+  <li><code class="highlighter-rouge">git log </code>: 查看本地版本记录。</li>
+  <li>
+    <p><code class="highlighter-rouge">git log --graph </code>: 图形化有分支的查看本地版本。</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">git log --graph --pretty=format:"%h %s"</code>: 只显示哈希值和记录。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="git-三个区域">Git 三个区域</h2>
+
+<h3 id="工作区">工作区</h3>
+
+<p>包含已经被 Git 管理的文件和未被 Git 管理的文件或修改的文件。Git 会自动检测文件是否被管理。</p>
+
+<h3 id="暂存区">暂存区</h3>
+
+<p>用 <code class="highlighter-rouge">git add</code> 把工作区中未被 Git 管理的文件或修改的文件到提交暂存区。</p>
+
+<h3 id="版本库">版本库</h3>
+
+<p>用 <code class="highlighter-rouge">git commit</code> 把暂存区文件提交到版本库，生成本地版本。</p>
+
+<h2 id="版本回退">版本回退</h2>
+
+<p><code class="highlighter-rouge">git reset --soft &lt;version&gt;</code>: 把指定版本从版本库回退/前进到暂存区。</p>
+
+<p><code class="highlighter-rouge">git reset HEAD</code>: 把暂存文件从暂存区回退到工作区。</p>
+
+<p><code class="highlighter-rouge">git checkout -- &lt;file&gt;</code>: 把修改过的文件回退到上一个未修改版本的状态。</p>
+
+<p><code class="highlighter-rouge">git reset --hard &lt;version&gt;</code>: 把指定版本从版本库回退/前进到工作区。</p>
+
+<p><code class="highlighter-rouge">git reflog</code>: 查看本地操作记录和版本，通常在回退后找不到新版本时候使用。</p>
+
+<p>:bulb: <code class="highlighter-rouge">&lt;version&gt;</code> 可以从 <code class="highlighter-rouge">git log</code> 中查看，是一串 40 位长度的 16 进制哈希值。当你需要制定某个版本时，你只需要指定版本号的前 4 - 8 位即可，通常版本号的前 4 - 8 位大部分时候不会有冲突。</p>
+
+<p>以下的表格显示了从标题到左侧栏的 Git 操作。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">工作区</th>
+      <th style="text-align: center">暂存区</th>
+      <th style="text-align: center">版本库</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">工作区</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git checkout</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --mix</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">暂存区</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git add</code></td>
+      <td style="text-align: center">\</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --soft</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">版本库</td>
+      <td style="text-align: center">\</td>
+      <td style="text-align: center"><code class="highlighter-rouge">git commit</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">git reset --hard</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="3-git-分支">3 Git 分支</h1>
+
+<p>git 每个版本只保留修改的记录（节省存储空间）。分支的存在使得一个版本可以产生多个新版本，添加新功能。最后再合并这些新功能。每一条分支是一个隔离的版本，分支间互不影响。</p>
+
+<p><code class="highlighter-rouge">git branch</code>: 查看现存分支。<code class="highlighter-rouge">*</code> 表示当前所在分支。</p>
+
+<p><code class="highlighter-rouge">git branch &lt;new branch&gt;</code>: 从当前分支新建分支。</p>
+
+<p><code class="highlighter-rouge">git checkout &lt;branch&gt;</code>: 切换到指定分支。</p>
+
+<p><code class="highlighter-rouge">git checkout -b &lt;branch&gt;</code>: 从当前分支新建并且切换到指定分支。</p>
+
+<p><code class="highlighter-rouge">git merge &lt;branch&gt;</code>: 把指定分支合并到当前分支。</p>
+
+<ul>
+  <li>合并可能因为版本不同产生冲突，这个时候文件中会存在各个分支修改的记录，再手动确定所需的修改即可。确定后记得再生成最新版本。</li>
+</ul>
+
+<p><code class="highlighter-rouge">git branch -d &lt;branch&gt;</code>: 删除指定分支。</p>
+
+<h1 id="4-变基-rebase">4 变基 rebase</h1>
+
+<p>该操作使得 Git 记录简洁。</p>
+
+<h2 id="合并版本操作">合并版本操作</h2>
+
+<p><code class="highlighter-rouge">git rebase -i HEAD~&lt;num&gt;</code>: 合并包括当前记录后 <code class="highlighter-rouge">&lt;num&gt;</code> 个版本。</p>
+
+<p><code class="highlighter-rouge">git rebase -i &lt;version&gt;</code>: 合并包括当前记录到指定版本之间的所有版本。</p>
+
+<p>注意：合并版本操作不要包含已经推送到远程仓库的版本，会导致无法预料到的麻烦。</p>
+
+<p>合并版本后会产生临时文件，选取版本并加上指令：<code class="highlighter-rouge">s</code> 代表压缩。随后再提交。</p>
+
+<h2 id="合并分支操作">合并分支操作</h2>
+
+<ol>
+  <li><code class="highlighter-rouge">git checkout &lt;branch1&gt;</code>: 切换到指定分支 <em>1</em>。</li>
+  <li><code class="highlighter-rouge">git rebase &lt;branch2&gt;</code>: 把当前分支 <em>1</em> 合并到指定分支 <em>2</em>，与 <code class="highlighter-rouge">git merge &lt;branch&gt;</code> 相反。</li>
+  <li><code class="highlighter-rouge">git checkout &lt;branch2&gt;</code>: 切换到指定分支 <em>2</em>。</li>
+  <li><code class="highlighter-rouge">git merge &lt;branch1&gt;</code>: 把指定分支 <em>1</em> 合并到当前分支 <em>2</em>。
+    <ul>
+      <li>如果产生冲突，解决完后用 <code class="highlighter-rouge">git rebase --continue</code>。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="合并拉取操作">合并拉取操作</h2>
+
+<p><code class="highlighter-rouge">git pull</code> 操作无形之间产生了新的分支。为不产生新的分支，先进行 <code class="highlighter-rouge">git fetch</code> 操作拉取远端版本，再用 <code class="highlighter-rouge">git rebase repository/branch</code> 合并分支。</p>
+
+<h1 id="4-杂项">4 杂项</h1>
+
+<h2 id="vscode--git-集成开发">VSCode + Git 集成开发</h2>
+
+<p>VSCode 内集成了 Git，可以在 VSCode 中进行部分简单的 Git 操作。但是我们强烈建议你完全了解每一条 Git 指令的含义，熟悉命令行操作，以便更好地理解 Git 的工作原理。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://code.visualstudio.com/docs/sourcecontrol/overview">官方文档</a></td>
+      <td><a href="https://www.bilibili.com/video/BV1SL4y1Y7s1">视频教程</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="暂存">暂存</h2>
+
+<p><code class="highlighter-rouge">git stash</code>: 把工作区的修改暂存起来。</p>
+
+<p><code class="highlighter-rouge">git stash show</code>: 查看暂存的修改。</p>
+
+<p><code class="highlighter-rouge">git stash pop</code>: 恢复暂存的修改。</p>
+
+<h2 id="3-个配置文件">3 个配置文件</h2>
+
+<p>Git 配置级别主要有以下 3 类：</p>
+
+<ol>
+  <li>项目级别 local，对应 <code class="highlighter-rouge">git config --local</code>，配置文件为仓库所在的 <code class="highlighter-rouge">.git</code> 文件夹中的 <code class="highlighter-rouge">config</code> 文件，优先级最高。</li>
+  <li>用户级别 global，对应 <code class="highlighter-rouge">git config --global</code>，配置文件为 <code class="highlighter-rouge">home/</code> 或者 <code class="highlighter-rouge">C:/user/&lt;name&gt;/</code> 中的 <code class="highlighter-rouge">.gitconfig</code> 文件，优先级次之。</li>
+  <li>系统级别 system，对应 <code class="highlighter-rouge">git config --system</code>，配置文件为 <code class="highlighter-rouge">etc/</code> 或者 <code class="highlighter-rouge">&lt;GIT&gt;/etc/</code> 的 <code class="highlighter-rouge">gitconfig</code> 文件，优先级最低。</li>
+</ol>
+
+<h2 id="gitignore">.gitignore</h2>
+
+<p>写在 .gitignore 文件中的文件名不会被 Git 管理。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">file/</code>：在该文件夹中的文件均会被忽略。</li>
+  <li><code class="highlighter-rouge">*.xx</code>：以 <code class="highlighter-rouge">.xx</code> 结尾的文件会被忽略。</li>
+  <li><code class="highlighter-rouge">!x.xx</code>：如果以 <code class="highlighter-rouge">.xx</code> 结尾的文件被忽略了，则 <code class="highlighter-rouge">!</code> 使得 <code class="highlighter-rouge">x.xx</code> 被管理。</li>
+  <li><em>甚至 .gitignore 本身也可以被 Git 忽略。</em></li>
+</ul>
+
+
+                        
+                            <div class="share uk-text-center uk-margin-medium-top">
+    
+        <a class="uk-link-muted" href="https://twitter.com/intent/tweet?text=Git 教程&url=http://localhost:4000/docs/git_tutorial/&via=&related=" rel="nofollow" target="_blank" title="分享到 Twitter" onclick="window.open(this.href, 'twitter', 'width=550,height=235');return false;"><span data-uk-icon="icon: twitter; ratio: 1.2"></span></a>
+    
+    
+        <a class="uk-link-muted uk-margin-small-left" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocs%2Fgit_tutorial%2F" rel="nofollow" target="_blank" title="分享到 Facebook" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><span data-uk-icon="icon: facebook; ratio: 1.2"></span></a>
+    
+</div>
+                        
+                    </div>
+
+                    
+
+                    <hr class="uk-margin-medium">
+
+                    <script src="https://giscus.app/client.js" data-repo="Q-M-D/cs-self-learning"
+                    data-repo-id="R_kgDOIjUjaA" data-category="General" data-category-id="DIC_kwDOIjUjaM4CYRJe"
+                    data-mapping="og:title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="bottom" data-theme="noborder_light" data-lang="zh-CN" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+
+                    
+
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="uk-margin-large-top paginate-post">
+        <div class="uk-child-width-expand@s uk-grid-large uk-pagi" data-uk-grid>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>GitHub 在线编辑器教程</h5>
+                    <div><a class="remove-underline hvr-back" href="/docs/github_dev_tutorial/">&larr; 上一页</a></div>
+                
+            </div>
+            <div>
+                
+                  
+                  
+                  
+                    <h5>Relion_subtomo_averaging_code_review</h5>
+                    <div class="uk-text-right"><a class="remove-underline hvr-forward" href="/docs/relion_subtomo_averaging_code_review/">下一页 &rarr;</a></div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+                    <div class="uk-margin-large-top">
+    <h3>相关文档</h3>
+
+    
+    
+    
+
+    <ul class="uk-list link-secondary">
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    </ul>
+</div>
+
+
+                    
+
+                </article>
+
+                <script>
+                    // Table of contents scroll to
+                    UIkit.scroll('#markdown-toc a', {
+                        duration: 400,
+                        offset: 120
+                    });
+                </script>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+        <h5 class="uk-margin-top">基础知识</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/markdown_tutorial/">Markdown 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_dev_tutorial/">GitHub 在线编辑器教程</a></li>
+        
+          
+          
+          <li class="uk-active"><a href="/docs/git_tutorial/">Git 教程</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/relion_subtomo_averaging_code_review/">Relion_subtomo_averaging_code_review</a></li>
+        
+          
+          
+          <li class=""><a href="/docs/github_tutorial/">GitHub 教程</a></li>
+        
+        </ul>
+        
+        <h5 class="uk-margin-top">数据处理案例</h5>
+        <ul class="uk-nav uk-nav-default doc-nav">
+        
+          
+          
+          <li class=""><a href="/docs/cryoET/">CryoET 的relion前处理</a></li>
+        
+        </ul>
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="http://localhost:4000/uploads/logo.png" alt="Cellverse"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li><a href="/" >主页</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/about" >关于我们</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/markdown_tutorial/" >文档</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/sources/" >资源</a></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a href="https://github.com/Cellverse/Open-EM" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="mailto:contact@open-em.com" data-uk-icon="icon: mail" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+
+    
+        
+    
+
+    
+
+    </body>
+
+</html>
